@@ -31,7 +31,8 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        cur.execute('CREATE TABLE HouseInfo' + current_data + ' (address varchar(30),square varchar(30),money varchar(30),per_square VARCHAR (3))').fetchall()
+        cur.execute(
+            'CREATE TABLE houseinfo' + current_data + ' (address varchar(30),square varchar(30),money varchar(30),per_square VARCHAR (30))').fetchall()
         x = True
     except Exception as e:
         x = False
@@ -49,8 +50,24 @@ def insert_info(kind, value):
     :param value:
     :return:
     """
-    pass
+    conn = init_db()
+    cur = conn.cursor()
+    try:
+        y = 'INSERT INTO houseinfo' + current_data + ' (' + kind + ')' + ' VALUES ("' + value + '")'
+        print y
+        x = cur.execute(
+            y
+        )
+        x.fetchall()
+        x = True
+    except Exception as e:
+        x = False
+        print e
+    cur.close()
+    conn.commit()
+    conn.close()
+    return x
 
 
 if __name__ == '__main__':
-    print create_table()
+    insert_info("per_square", '100')
