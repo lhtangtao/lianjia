@@ -2,9 +2,12 @@
 # coding=gbk
 
 import MySQLdb
-from xpinyin import Pinyin
 import sys
 import uniout  # 没有这行就会出现数据库中无法读取中文
+import time
+
+time.localtime(time.time())
+current_data = time.strftime('%Y%m%d', time.localtime(time.time()))
 
 
 def init_db():
@@ -22,21 +25,31 @@ def init_db():
 
 def create_table():
     """
-    创建一张表，如果这个表存在的话则跳过
+    创建一张表，如果这个表存在的话则跳过 必须要确保数据库名字为test且存在
     :return: 如果存在 返回False，如果不存在则会建立一张表并且返回true
     """
     conn = init_db()
     cur = conn.cursor()
     try:
-        cur.execute(
-            'CREATE TABLE house_info (address varchar(30),square varchar(30),money varchar(30),per_square VARCHAR (3))').fetchall()
+        cur.execute('CREATE TABLE HouseInfo' + current_data + ' (address varchar(30),square varchar(30),money varchar(30),per_square VARCHAR (3))').fetchall()
         x = True
-    except:
+    except Exception as e:
         x = False
+        print e
     cur.close()
     conn.commit()
     conn.close()
     return x
+
+
+def insert_info(kind, value):
+    """
+    要插入的数据列名和数值
+    :param kind:
+    :param value:
+    :return:
+    """
+    pass
 
 
 if __name__ == '__main__':

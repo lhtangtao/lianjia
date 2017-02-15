@@ -38,14 +38,14 @@ while i < 2:
     url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(i) + '/'
     page = urllib2.urlopen(url)
     soup = BeautifulSoup(page, "lxml")
-    for title in soup.find_all('a'):
-        total_price = title.get('href')
-        print(total_price)
-    # for link in soup.find_all('div', 'houseInfo'):
-    #     context = link.get_text()
-    #     print(str(i) + context)
-    # for price in soup.find_all('div', 'totalPrice'):
-    #     total_price = price.get_text()
+    # for title in soup.find_all('a'):
+    #     total_price = title.get('href')
     #     print(total_price)
+    for link in soup.find_all('div', 'houseInfo'):
+        context = link.get_text()
+        print(str(i) + context)
+    for price in soup.find_all('div', 'totalPrice'):
+        total_price = price.get_text()
+        print(total_price)
     i += 1
-# print("end" + time.clock())
+print(time.clock())
