@@ -29,16 +29,16 @@ import urllib2
 import time
 from bs4 import BeautifulSoup
 
-from my_sqldb import insert_info, update_info
+from my_sqldb import insert_info, update_info, get_row, create_table
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-total_page = 29
+
 current_data = time.strftime('%Y-%m-%d', time.localtime(time.time()))
 time.clock()
 
 
-def get_house_href():
+def get_house_href(total_page=2):
     """
     获取文本后面的链接网址
     :return:
@@ -53,23 +53,29 @@ def get_house_href():
         i += 1
 
 
-def get_house(location="binjiang"):
+def get_house(location="binjiang", current_id=1):
     current_page = 1
-    while current_page <= total_page:
-        # url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(current_page) + '/'
+    url = 'http://hz.lianjia.com/ershoufang/' + location
+    page = urllib2.urlopen(url)
+    soup = BeautifulSoup(page, "lxml")
+    for link in soup.find_all('div', 'resultDes clear'):
+        context = link.get_text()
+        total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
+        print location + u'一共有' + total_house + u'套房子'
+        total_page = int(total_house) / 30 + 1  # 求出一共有多少页
+    while current_page < total_page or current_page == total_page:
         url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
         soup = BeautifulSoup(page, "lxml")
-        ID_num = (current_page - 1) * 30
+        ID_num = current_id
         for price in soup.find_all('div', 'totalPrice'):
-            ID_num += 1
             insert_info("Id", ID_num)
             total_price = price.get_text()
             update_info('money', total_price, ID_num)
             update_info('current_data', current_data, ID_num)
-        ID_num = (current_page - 1) * 30
-        for link in soup.find_all('div', 'houseInfo'):
             ID_num += 1
+        ID_num = current_id
+        for link in soup.find_all('div', 'houseInfo'):
             context = link.get_text()
             village = context.split('|')[0]
             house_type = context.split('|')[1]
@@ -82,17 +88,29 @@ def get_house(location="binjiang"):
             update_info("orientation", orientation, ID_num)
             update_info("decorate", decorate, ID_num)
             update_info("location", location, ID_num)
-        ID_num = (current_page - 1) * 30
-        for price in soup.find_all('div', 'unitPrice'):
             ID_num += 1
+        ID_num = current_id
+        for price in soup.find_all('div', 'unitPrice'):
             total_price = price.get_text()
             unit_price = re.findall(r"\d+\.?\d*", total_price)[0]
             update_info("per_square", unit_price, ID_num)
             update_info("page", current_page, ID_num)
+            ID_num += 1
+        current_id = ID_num
+        # print current_page
+        # print ID_num
         current_page += 1
-        print current_page
+    return get_row()
 
 
 if __name__ == '__main__':
-    get_house("jianggan")
+    create_table()
+    row = get_house()
+    row = get_house("jianggan", row + 1)
+    row = get_house('xihu', row + 1)
+    row = get_house('xiacheng', row + 1)
+    row = get_house('gongshu', row + 1)
+    row = get_house('shangcheng', row + 1)
+    row = get_house('yuhang', row + 1)
+    row = get_house('xiaoshan', row + 1)
     print(time.clock())
