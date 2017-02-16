@@ -31,8 +31,9 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        cur.execute(
-            'CREATE TABLE houseinfo' + current_data + ' (address varchar(30),square varchar(30),money varchar(30),per_square VARCHAR (30))').fetchall()
+        sql_script = 'CREATE TABLE houseinfo' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300))'
+        # print sql_script
+        cur.execute(sql_script)
         x = True
     except Exception as e:
         x = False
@@ -53,12 +54,32 @@ def insert_info(kind, value):
     conn = init_db()
     cur = conn.cursor()
     try:
-        y = 'INSERT INTO houseinfo' + current_data + ' (' + kind + ')' + ' VALUES ("' + value + '")'
-        print y
-        x = cur.execute(
-            y
-        )
-        x.fetchall()
+        sql_script0 = "INSERT INTO houseinfo%s" % current_data
+        sql_script1 = "(%s) VALUES " % kind
+        sql_script2 = "('%s')" % value
+        sql_script = sql_script0 + sql_script1 + sql_script2
+        cur.execute(sql_script)
+        x = True
+    except Exception as e:
+        x = False
+        print e
+    cur.close()
+    conn.commit()
+    conn.close()
+    return x
+
+
+def update_info(kind, value, id_num):
+    conn = init_db()
+    cur = conn.cursor()
+    try:
+        sql_script0 = "UPDATE houseinfo%s SET" % current_data
+        sql_script1 = " %s =" % kind
+        sql_script2 = "('%s')" % value
+        sql_script3 = "where id='%s'" % id_num
+        sql_script = sql_script0 + sql_script1 + sql_script2 + sql_script3
+        # print sql_script
+        cur.execute(sql_script)
         x = True
     except Exception as e:
         x = False
@@ -70,4 +91,5 @@ def insert_info(kind, value):
 
 
 if __name__ == '__main__':
-    insert_info("per_square", '100')
+    print update_info('money', '100', '5')
+    # insert_info("per_square", '100')

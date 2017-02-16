@@ -41,11 +41,15 @@ while i < 2:
     # for title in soup.find_all('a'):
     #     total_price = title.get('href')
     #     print(total_price)
+    # print len(soup.find_all('div', 'houseInfo'))#获取这个一个页面里有多少houseinfo
     for link in soup.find_all('div', 'houseInfo'):
         context = link.get_text()
-        print(str(i) + context)
-    for price in soup.find_all('div', 'totalPrice'):
-        total_price = price.get_text()
-        print(total_price)
+        # print(str(i) + context)
+        village = context.split('|')[4]
+        house_type = context.split('|')[4]
+        print village+house_type
+    # for price in soup.find_all('div', 'totalPrice'):
+    #     total_price = price.get_text()
+    #     print(total_price)
     i += 1
 print(time.clock())
