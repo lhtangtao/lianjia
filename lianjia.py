@@ -76,18 +76,24 @@ def get_house(location="binjiang", current_id=1):
             ID_num += 1
         ID_num = current_id
         for link in soup.find_all('div', 'houseInfo'):
+            # print url
             context = link.get_text()
+            print u'changdu' + str(len(context.split("|")))
             village = context.split('|')[0]
             house_type = context.split('|')[1]
             square = context.split('|')[2]
             orientation = context.split('|')[3]
-            decorate = context.split('|')[4]
             update_info("village", village, ID_num)
             update_info("house_type", house_type, ID_num)
             update_info("square", square, ID_num)
             update_info("orientation", orientation, ID_num)
-            update_info("decorate", decorate, ID_num)
             update_info("location", location, ID_num)
+            if len(context.split("|")) >= 5:
+                decorate = context.split('|')[4]
+                update_info("decorate", decorate, ID_num)
+            else:
+                pass
+
             ID_num += 1
         ID_num = current_id
         for price in soup.find_all('div', 'unitPrice'):
@@ -97,18 +103,19 @@ def get_house(location="binjiang", current_id=1):
             update_info("page", current_page, ID_num)
             ID_num += 1
         current_id = ID_num
-        # print current_page
-        # print ID_num
+        print current_page
+        print ID_num
         current_page += 1
     return get_row()
 
 
 if __name__ == '__main__':
     create_table()
-    row = get_house()
-    row = get_house("jianggan", row + 1)
+    row = 0
     row = get_house('xihu', row + 1)
     row = get_house('xiacheng', row + 1)
+    row = get_house('binjiang', row + 1)
+    row = get_house("jianggan", row + 1)
     row = get_house('gongshu', row + 1)
     row = get_house('shangcheng', row + 1)
     row = get_house('yuhang', row + 1)

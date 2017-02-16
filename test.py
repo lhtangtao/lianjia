@@ -42,11 +42,12 @@ while i < 2:
     #     total_price = title.get('href')
     #     print(total_price)
     # print (soup.find_all('div', 'total fl'))#获取这个一个页面里有多少houseinfo
-    for link in soup.find_all('div', 'resultDes clear'):
+    for link in soup.find_all('div', 'houseInfo'):
         context = link.get_text()
-        unit_price = re.findall(r"\d+\.?\d*", context)[0]
-        unit_price= int(unit_price)
-        print unit_price/30
+        print len(context.split('|'))
+    #     unit_price = re.findall(r"\d+\.?\d*", context)[0]
+    #     unit_price= int(unit_price)
+    #     print unit_price/30
         # village = context.split('|')[4]
         # house_type = context.split('|')[4]
         # print village+house_type
