@@ -31,7 +31,7 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = 'CREATE TABLE houseinfo' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300))'
+        sql_script = 'CREATE TABLE houseinfo' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
         # print sql_script
         cur.execute(sql_script)
         x = True
@@ -91,5 +91,4 @@ def update_info(kind, value, id_num):
 
 
 if __name__ == '__main__':
-    print update_info('money', '100', '5')
-    # insert_info("per_square", '100')
+    print create_table()

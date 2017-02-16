@@ -33,8 +33,9 @@ from my_sqldb import insert_info, update_info
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-total_page = 2
+total_page = 29
 current_data = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+time.clock()
 
 
 def get_house_href():
@@ -52,20 +53,21 @@ def get_house_href():
         i += 1
 
 
-def get_house():
-    ID_num = 0
-    i = 1
-    while i < total_page:
-        url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(i) + '/'
+def get_house(location="binjiang"):
+    current_page = 1
+    while current_page <= total_page:
+        # url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(current_page) + '/'
+        url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
         soup = BeautifulSoup(page, "lxml")
+        ID_num = (current_page - 1) * 30
         for price in soup.find_all('div', 'totalPrice'):
             ID_num += 1
             insert_info("Id", ID_num)
             total_price = price.get_text()
             update_info('money', total_price, ID_num)
             update_info('current_data', current_data, ID_num)
-        ID_num = 0
+        ID_num = (current_page - 1) * 30
         for link in soup.find_all('div', 'houseInfo'):
             ID_num += 1
             context = link.get_text()
@@ -79,14 +81,18 @@ def get_house():
             update_info("square", square, ID_num)
             update_info("orientation", orientation, ID_num)
             update_info("decorate", decorate, ID_num)
-        ID_num = 0
+            update_info("location", location, ID_num)
+        ID_num = (current_page - 1) * 30
         for price in soup.find_all('div', 'unitPrice'):
             ID_num += 1
             total_price = price.get_text()
             unit_price = re.findall(r"\d+\.?\d*", total_price)[0]
             update_info("per_square", unit_price, ID_num)
-        i += 1
+            update_info("page", current_page, ID_num)
+        current_page += 1
+        print current_page
 
 
 if __name__ == '__main__':
-    get_house()
+    get_house("jianggan")
+    print(time.clock())
