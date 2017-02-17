@@ -11,6 +11,10 @@ current_data = time.strftime('%Y%m%d', time.localtime(time.time()))
 
 
 def init_db():
+    """
+    请在此处输入数据库的信息
+    :return:
+    """
     connect = MySQLdb.connect(
         host='127.0.0.1',
         port=3306,

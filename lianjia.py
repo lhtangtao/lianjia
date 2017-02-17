@@ -81,8 +81,8 @@ def get_house(location="binjiang", current_id=1):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
         print location + u'一共有' + total_house + u'套房子'
-        # total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-        total_page=2
+        total_page = int(total_house) / 30 + 1  # 求出一共有多少页
+        # total_page=2
     while current_page <= total_page :  # 遍历这个区域的所有房子的信息
         url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
@@ -143,27 +143,19 @@ def get_house(location="binjiang", current_id=1):
 if __name__ == '__main__':
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
-    print row
     row = get_house('binjiang', row + 1)
-    print 'binjiang' + str(row)
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house("jianggan", row + 1)
-    print 'jianggan' + str(row)
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('gongshu', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('shangcheng', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('yuhang', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('xiaoshan', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('xihu', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
     row = get_house('xiacheng', row + 1)
-    print row
-    print(time.clock())
+    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
