@@ -32,7 +32,6 @@ from my_sqldb import insert_info, update_info, get_row, create_table
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
 current_data = time.strftime('%Y-%m-%d', time.localtime(time.time()))
 time.clock()
 
@@ -46,18 +45,19 @@ def get_house_href(total_page=2):
     while i < total_page:
         url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(i) + '/'
         page = urllib2.urlopen(url)
-        soup = BeautifulSoup(page, "lxml")
+        soup = BeautifulSoup(page, "html.parser")
         for title in soup.find_all('div', 'title'):
             print type(title.a)
         i += 1
 
 
 def get_house(location="binjiang", current_id=1):
-    current_page = 1
+    current_page = 1 #当前在第几页
+    total_page=0 #在这个区里一共有多少页房产信息
     url = 'http://hz.lianjia.com/ershoufang/' + location
     req = urllib2.Request(url)
     page = urllib2.urlopen(req)
-    soup = BeautifulSoup(page, "lxml")
+    soup = BeautifulSoup(page, "html.parser")
     if location == 'binjiang':
         location_chinese = u'滨江'
     elif location == 'xihu':
@@ -76,27 +76,30 @@ def get_house(location="binjiang", current_id=1):
         location_chinese = u'萧山'
     else:
         print 'wrong location'
-    print soup  # 打印信息查看是否出现了需要验证码的提示
+    # print soup  # 打印信息查看是否出现了需要验证码的提示
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
         print location + u'一共有' + total_house + u'套房子'
-        total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-    while current_page < total_page or current_page == total_page:  # 遍历这个区域的所有房子的信息
+        # total_page = int(total_house) / 30 + 1  # 求出一共有多少页
+        total_page=2
+    while current_page <= total_page :  # 遍历这个区域的所有房子的信息
         url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
-        soup = BeautifulSoup(page, "lxml")
+        soup = BeautifulSoup(page, "html.parser")
         ID_num = current_id
         for price in soup.find_all('div', 'totalPrice'):  # 总价的信息
             insert_info("Id", ID_num)
-            total_price = price.get_text()
-            update_info('money', total_price, ID_num)
+            unit_price = price.get_text()
+            # print 'total price'+unit_price
+            update_info('money', unit_price, ID_num)
             update_info('current_data', current_data, ID_num)
             ID_num += 1
         ID_num = current_id
         for link in soup.find_all('div', 'houseInfo'):  # 房子的相关信息，排除出各种别墅
             # print url
             context = link.get_text()
+            # print 'info:'+context
             village = context.split('|')[0]
             house_type = context.split('|')[1]
             square = context.split('|')[2]
@@ -118,19 +121,21 @@ def get_house(location="binjiang", current_id=1):
             ID_num += 1
         ID_num = current_id
         for price in soup.find_all('div', 'unitPrice'):  # 单价的信息
-            total_price = price.get_text()
-            unit_price = re.findall(r"\d+\.?\d*", total_price)[0]
+            unit_price = price.get_text()
+            # print unit_price
+            unit_price = re.findall(r"\d+\.?\d*", unit_price)[0]
             update_info("per_square", unit_price, ID_num)
             update_info("page", current_page, ID_num)
             ID_num += 1
         ID_num = current_id
         for price in soup.find_all("a", attrs={"target": "_blank", 'class': "title"}):  # 获取链接
             url_text = price.get('href')
+            # print url_text
             update_info("url", url_text, ID_num)
             ID_num += 1
         current_id = ID_num
-        print current_page
-        print ID_num
+        # print current_page
+        # print ID_num
         current_page += 1
     return get_row()
 
@@ -139,20 +144,26 @@ if __name__ == '__main__':
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     print row
-    # row = get_house('binjiang', row + 1)
-    # print 'binjiang' + str(row)
-    # row = get_house("jianggan", row + 1)
-    # print 'jianggan'+ str(row)
+    row = get_house('binjiang', row + 1)
+    print 'binjiang' + str(row)
+    row = get_house("jianggan", row + 1)
+    print 'jianggan' + str(row)
+    print(time.clock())
     row = get_house('gongshu', row + 1)
     print row
+    print(time.clock())
     row = get_house('shangcheng', row + 1)
     print row
+    print(time.clock())
     row = get_house('yuhang', row + 1)
     print row
+    print(time.clock())
     row = get_house('xiaoshan', row + 1)
     print row
+    print(time.clock())
     row = get_house('xihu', row + 1)
     print row
+    print(time.clock())
     row = get_house('xiacheng', row + 1)
     print row
     print(time.clock())
