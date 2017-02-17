@@ -57,7 +57,24 @@ def get_house(location="binjiang", current_id=1):
     current_page = 1
     url = 'http://hz.lianjia.com/ershoufang/' + location
     page = urllib2.urlopen(url)
+    print url
     soup = BeautifulSoup(page, "lxml")
+    if location == 'binjiang':
+        location = u'滨江'
+    elif location == 'xihu':
+        location = u'西湖'
+    elif location == 'xiacheng':
+        location = u'下城'
+    elif location == 'jianggan':
+        location = u'江干'
+    elif location == 'gongshu':
+        location = u'拱墅'
+    elif location == 'shangcheng':
+        location = u'上城'
+    elif location == 'yuhang':
+        location = u'余杭'
+    elif location == 'xiaoshan':
+        location = u'萧山'
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
@@ -78,7 +95,7 @@ def get_house(location="binjiang", current_id=1):
         for link in soup.find_all('div', 'houseInfo'):
             # print url
             context = link.get_text()
-            print u'changdu' + str(len(context.split("|")))
+            # print u'changdu' + str(len(context.split("|")))
             village = context.split('|')[0]
             house_type = context.split('|')[1]
             square = context.split('|')[2]
@@ -103,21 +120,21 @@ def get_house(location="binjiang", current_id=1):
             update_info("page", current_page, ID_num)
             ID_num += 1
         current_id = ID_num
-        print current_page
-        print ID_num
+        # print current_page
+        # print ID_num
         current_page += 1
     return get_row()
 
 
 if __name__ == '__main__':
     create_table()
-    row = 0
-    row = get_house('xihu', row + 1)
-    row = get_house('xiacheng', row + 1)
-    row = get_house('binjiang', row + 1)
-    row = get_house("jianggan", row + 1)
-    row = get_house('gongshu', row + 1)
+    row = get_row()  # 获取数据库中有多少行数据
+    # row = get_house('xihu', row + 1)
+    # row = get_house('xiacheng', row + 1)
+    # row = get_house('binjiang', row + 1)
+    # row = get_house("jianggan", row + 1)
+    # row = get_house('gongshu', row + 1)
     row = get_house('shangcheng', row + 1)
-    row = get_house('yuhang', row + 1)
-    row = get_house('xiaoshan', row + 1)
+    # row = get_house('yuhang', row + 1)
+    # row = get_house('xiaoshan', row + 1)
     print(time.clock())

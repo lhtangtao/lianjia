@@ -97,8 +97,8 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    # sql_script = 'SELECT COUNT(Id) FROM houseinfo%s' % current_data
-    sql_script = 'SELECT * FROM houseinfo20170216'
+    sql_script = 'SELECT * FROM houseinfo%s' % current_data
+    # sql_script = 'SELECT * FROM houseinfo20170216'
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()
@@ -107,5 +107,5 @@ def get_row():
 
 
 if __name__ == '__main__':
-    # print create_table()
-    get_row()
+    print create_table()
+    print get_row()
