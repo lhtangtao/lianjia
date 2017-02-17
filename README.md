@@ -7,4 +7,4 @@
 
 采集的数据如下图所示
 
-![111](C:\Users\rache\Desktop\111.jpg)
+![111](E:\git\lianjia\111.jpg)
