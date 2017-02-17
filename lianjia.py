@@ -57,24 +57,23 @@ def get_house(location="binjiang", current_id=1):
     current_page = 1
     url = 'http://hz.lianjia.com/ershoufang/' + location
     page = urllib2.urlopen(url)
-    print url
     soup = BeautifulSoup(page, "lxml")
     if location == 'binjiang':
-        location = u'滨江'
+        location_chinese = u'滨江'
     elif location == 'xihu':
-        location = u'西湖'
+        location_chinese = u'西湖'
     elif location == 'xiacheng':
-        location = u'下城'
+        location_chinese = u'下城'
     elif location == 'jianggan':
-        location = u'江干'
+        location_chinese = u'江干'
     elif location == 'gongshu':
-        location = u'拱墅'
+        location_chinese = u'拱墅'
     elif location == 'shangcheng':
-        location = u'上城'
+        location_chinese = u'上城'
     elif location == 'yuhang':
-        location = u'余杭'
+        location_chinese = u'余杭'
     elif location == 'xiaoshan':
-        location = u'萧山'
+        location_chinese = u'萧山'
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
@@ -104,13 +103,12 @@ def get_house(location="binjiang", current_id=1):
             update_info("house_type", house_type, ID_num)
             update_info("square", square, ID_num)
             update_info("orientation", orientation, ID_num)
-            update_info("location", location, ID_num)
+            update_info("location", location_chinese, ID_num)
             if len(context.split("|")) >= 5:
                 decorate = context.split('|')[4]
                 update_info("decorate", decorate, ID_num)
             else:
                 pass
-
             ID_num += 1
         ID_num = current_id
         for price in soup.find_all('div', 'unitPrice'):
@@ -119,9 +117,14 @@ def get_house(location="binjiang", current_id=1):
             update_info("per_square", unit_price, ID_num)
             update_info("page", current_page, ID_num)
             ID_num += 1
+        ID_num = current_id
+        for price in soup.find_all("a", attrs={"target": "_blank", 'class': "title"}):
+            url_text = price.get('href')
+            update_info("url", url_text, ID_num)
+            ID_num += 1
         current_id = ID_num
-        # print current_page
-        # print ID_num
+        print current_page
+        print ID_num
         current_page += 1
     return get_row()
 
@@ -131,10 +134,10 @@ if __name__ == '__main__':
     row = get_row()  # 获取数据库中有多少行数据
     # row = get_house('xihu', row + 1)
     # row = get_house('xiacheng', row + 1)
-    # row = get_house('binjiang', row + 1)
+    row = get_house('binjiang', row + 1)
     # row = get_house("jianggan", row + 1)
     # row = get_house('gongshu', row + 1)
-    row = get_house('shangcheng', row + 1)
+    # row = get_house('shangcheng', row + 1)
     # row = get_house('yuhang', row + 1)
     # row = get_house('xiaoshan', row + 1)
     print(time.clock())
