@@ -139,20 +139,20 @@ if __name__ == '__main__':
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     print row
-    # row = get_house('xihu', row + 1)
-    # print row
-    # row = get_house('xiacheng', row + 1)
-    # print row
-    row = get_house('binjiang', row + 1)
-    print row
+    # row = get_house('binjiang', row + 1)
+    # print 'binjiang' + str(row)
     # row = get_house("jianggan", row + 1)
-    # print row
-    # row = get_house('gongshu', row + 1)
-    # print row
-    # row = get_house('shangcheng', row + 1)
-    # print row
-    # row = get_house('yuhang', row + 1)
-    # print row
-    # row = get_house('xiaoshan', row + 1)
-    # print row
+    # print 'jianggan'+ str(row)
+    row = get_house('gongshu', row + 1)
+    print row
+    row = get_house('shangcheng', row + 1)
+    print row
+    row = get_house('yuhang', row + 1)
+    print row
+    row = get_house('xiaoshan', row + 1)
+    print row
+    row = get_house('xihu', row + 1)
+    print row
+    row = get_house('xiacheng', row + 1)
+    print row
     print(time.clock())
