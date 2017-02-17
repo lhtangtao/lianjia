@@ -7,4 +7,4 @@
 
 采集的数据如下图所示
 
-![111](https://github.com/lhtangtao/lianjia/img/111.jpg )
+![111](https://raw.githubusercontent.com/lhtangtao/lianjia/master/img/111.jpg)
