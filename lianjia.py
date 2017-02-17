@@ -22,8 +22,6 @@ I love animals. They taste delicious.
 ┃┫┫  ┃┫┫
 ┗┻┛  ┗┻┛
 """
-import random
-import urllib2
 import re
 import sys
 import urllib2
@@ -31,26 +29,6 @@ import time
 from bs4 import BeautifulSoup
 
 from my_sqldb import insert_info, update_info, get_row, create_table
-
-# Some User Agents
-hds = [{'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}, \
-       {
-           'User-Agent': 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.12 Safari/535.11'}, \
-       {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)'}, \
-       {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0'}, \
-       {
-           'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/44.0.2403.89 Chrome/44.0.2403.89 Safari/537.36'}, \
-       {
-           'User-Agent': 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'}, \
-       {
-           'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'}, \
-       {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0'}, \
-       {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1'}, \
-       {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1'}, \
-       {
-           'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11'}, \
-       {'User-Agent': 'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11'}, \
-       {'User-Agent': 'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11'}]
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -77,10 +55,9 @@ def get_house_href(total_page=2):
 def get_house(location="binjiang", current_id=1):
     current_page = 1
     url = 'http://hz.lianjia.com/ershoufang/' + location
-    req = urllib2.Request(url, headers=hds[random.randint(0, len(hds) - 1)])
+    req = urllib2.Request(url)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "lxml")
-    print soup
     if location == 'binjiang':
         location_chinese = u'滨江'
     elif location == 'xihu':
@@ -99,25 +76,25 @@ def get_house(location="binjiang", current_id=1):
         location_chinese = u'萧山'
     else:
         print 'wrong location'
+    print soup  # 打印信息查看是否出现了需要验证码的提示
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
         print location + u'一共有' + total_house + u'套房子'
         total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-    while current_page < total_page or current_page == total_page:
+    while current_page < total_page or current_page == total_page:  # 遍历这个区域的所有房子的信息
         url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
         soup = BeautifulSoup(page, "lxml")
-        # print soup
         ID_num = current_id
-        for price in soup.find_all('div', 'totalPrice'):
+        for price in soup.find_all('div', 'totalPrice'):  # 总价的信息
             insert_info("Id", ID_num)
             total_price = price.get_text()
             update_info('money', total_price, ID_num)
             update_info('current_data', current_data, ID_num)
             ID_num += 1
         ID_num = current_id
-        for link in soup.find_all('div', 'houseInfo'):
+        for link in soup.find_all('div', 'houseInfo'):  # 房子的相关信息，排除出各种别墅
             # print url
             context = link.get_text()
             village = context.split('|')[0]
@@ -140,14 +117,14 @@ def get_house(location="binjiang", current_id=1):
                 pass
             ID_num += 1
         ID_num = current_id
-        for price in soup.find_all('div', 'unitPrice'):
+        for price in soup.find_all('div', 'unitPrice'):  # 单价的信息
             total_price = price.get_text()
             unit_price = re.findall(r"\d+\.?\d*", total_price)[0]
             update_info("per_square", unit_price, ID_num)
             update_info("page", current_page, ID_num)
             ID_num += 1
         ID_num = current_id
-        for price in soup.find_all("a", attrs={"target": "_blank", 'class': "title"}):
+        for price in soup.find_all("a", attrs={"target": "_blank", 'class': "title"}):  # 获取链接
             url_text = price.get('href')
             update_info("url", url_text, ID_num)
             ID_num += 1
@@ -167,7 +144,7 @@ if __name__ == '__main__':
     # row = get_house('xiacheng', row + 1)
     # print row
     row = get_house('binjiang', row + 1)
-    # print row
+    print row
     # row = get_house("jianggan", row + 1)
     # print row
     # row = get_house('gongshu', row + 1)
