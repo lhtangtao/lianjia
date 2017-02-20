@@ -27,7 +27,6 @@ import sys
 import urllib2
 import time
 from bs4 import BeautifulSoup
-
 from my_sqldb import insert_info, update_info, get_row, create_table
 
 reload(sys)
@@ -52,8 +51,8 @@ def get_house_href(total_page=2):
 
 
 def get_house(location="binjiang", current_id=1):
-    current_page = 1 #当前在第几页
-    total_page=0 #在这个区里一共有多少页房产信息
+    current_page = 1  # 当前在第几页
+    total_page = 0  # 在这个区里一共有多少页房产信息
     url = 'http://hz.lianjia.com/ershoufang/' + location
     req = urllib2.Request(url)
     page = urllib2.urlopen(req)
@@ -76,14 +75,20 @@ def get_house(location="binjiang", current_id=1):
         location_chinese = u'萧山'
     else:
         print 'wrong location'
-    # print soup  # 打印信息查看是否出现了需要验证码的提示
+    try:
+        error = soup.title.text
+        if error == u"验证异常流量-链家网":
+            print u'ip被封 请尝试更换代理'
+    except:
+        pass
+
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
         print location + u'一共有' + total_house + u'套房子'
         total_page = int(total_house) / 30 + 1  # 求出一共有多少页
         # total_page=2
-    while current_page <= total_page :  # 遍历这个区域的所有房子的信息
+    while current_page <= total_page:  # 遍历这个区域的所有房子的信息
         url = 'http://hz.lianjia.com/ershoufang/' + location + '/pg' + str(current_page) + '/'
         page = urllib2.urlopen(url)
         soup = BeautifulSoup(page, "html.parser")
@@ -141,21 +146,22 @@ def get_house(location="binjiang", current_id=1):
 
 
 if __name__ == '__main__':
+    print '\u7ecf\u7eaa\u4eba\u9a8c\u8bc1'
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     row = get_house('binjiang', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house("jianggan", row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('gongshu', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('shangcheng', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('yuhang', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('xiaoshan', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('xihu', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('xiacheng', row + 1)
-    print u'总计已采集数据量为' + str(row)+'    ' +str(time.clock())
+    print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
