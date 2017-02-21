@@ -79,6 +79,9 @@ def get_house(location="binjiang", current_id=1):
         error = soup.title.text
         if error == u"验证异常流量-链家网":
             print u'ip被封 请尝试更换代理'
+            return get_row()
+        else:
+            pass
     except:
         pass
 
@@ -146,7 +149,6 @@ def get_house(location="binjiang", current_id=1):
 
 
 if __name__ == '__main__':
-    print '\u7ecf\u7eaa\u4eba\u9a8c\u8bc1'
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     row = get_house('binjiang', row + 1)
