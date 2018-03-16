@@ -1,7 +1,8 @@
 # coding=utf-8
 # coding=gbk
 
-import MySQLdb
+# import MySQLdb
+import pymysql
 import sys
 import uniout  # 没有这行就会出现数据库中无法读取中文
 import time
@@ -14,8 +15,9 @@ def init_db():
     """
     请在此处输入数据库的信息
     :return:
-    """
-    connect = MySQLdb.connect(
+    # """
+    # connect = MySQLdb.connect(
+    connect = pymysql.connect(
         host='127.0.0.1',
         port=3306,
         user='root',
