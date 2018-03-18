@@ -42,4 +42,5 @@ def do_js():
 
 
 if __name__ == '__main__':
-    print do_js()
+    # print do_js()
+    print "hello"

@@ -112,6 +112,24 @@ def get_row():
     return row
 
 
+def alter_mysql():
+    """
+    最后执行表结构变更
+    :return:
+    """
+    conn = init_db()
+    cur = conn.cursor()
+    try:
+        sql_script = "ALTER TABLE `test`.`houseinfo20180318` MODIFY COLUMN `Id` int(30) NULL DEFAULT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`;"
+        cur.execute(sql_script)
+        x = True
+    except Exception as e:
+        x = False
+        print e
+    cur.close()
+    conn.commit()
+    conn.close()
+    return x
 
 
 if __name__ == '__main__':

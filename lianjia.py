@@ -27,7 +27,7 @@ import sys
 import urllib2
 import time
 from bs4 import BeautifulSoup
-from my_sqldb import insert_info, update_info, get_row, create_table
+from my_sqldb import insert_info, update_info, get_row, create_table, alter_mysql
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -99,7 +99,7 @@ def get_house(location="binjiang", current_id=1):
         for price in soup.find_all('div', 'totalPrice'):  # 总价的信息
             insert_info("Id", ID_num)
             unit_price = price.get_text()
-            # print 'total price'+unit_price
+            unit_price = unit_price[:-1]  # 把最后的一个万字去掉
             update_info('money', unit_price, ID_num)
             update_info('current_data', current_data, ID_num)
             ID_num += 1
@@ -110,11 +110,11 @@ def get_house(location="binjiang", current_id=1):
             # print 'info:'+context
             village = context.split('|')[0]
             house_type = context.split('|')[1]
-            square = context.split('|')[2]
+            square = context.split('|')[2]  # 把平米两个字去掉
             orientation = context.split('|')[3]
             if u'别墅' in house_type:
                 house_type = context.split('|')[2]
-                square = context.split('|')[3]
+                square = context.split('|')[3]  # 把平米两个字去掉
                 orientation = context.split('|')[4]
             update_info("village", village, ID_num)
             update_info("house_type", house_type, ID_num)
@@ -167,3 +167,4 @@ if __name__ == '__main__':
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('xiacheng', row + 1)
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
+    alter_mysql()
