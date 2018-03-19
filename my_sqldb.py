@@ -120,7 +120,7 @@ def alter_mysql():
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = "ALTER TABLE `test`.`houseinfo20180318` MODIFY COLUMN `Id` int(30) NULL DEFAULT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`;"
+        sql_script = "ALTER TABLE `test`.`houseinfo20180318` MODIFY COLUMN `Id` int(30) NULL DEFAULT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY ('Id');"
         cur.execute(sql_script)
         x = True
     except Exception as e:

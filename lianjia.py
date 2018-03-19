@@ -110,11 +110,11 @@ def get_house(location="binjiang", current_id=1):
             # print 'info:'+context
             village = context.split('|')[0]
             house_type = context.split('|')[1]
-            square = context.split('|')[2]  # 把平米两个字去掉
+            square = context.split('|')[2][:-3]  # 把平米两个字去掉
             orientation = context.split('|')[3]
             if u'别墅' in house_type:
                 house_type = context.split('|')[2]
-                square = context.split('|')[3]  # 把平米两个字去掉
+                square = context.split('|')[3][:-3]  # 把平米两个字去掉
                 orientation = context.split('|')[4]
             update_info("village", village, ID_num)
             update_info("house_type", house_type, ID_num)
