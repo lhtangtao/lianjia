@@ -24,7 +24,10 @@ I love animals. They taste delicious.
 """
 import sys
 
+import time
 from selenium import webdriver
+
+from my_sqldb import create_table
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -43,4 +46,5 @@ def do_js():
 
 if __name__ == '__main__':
     # print do_js()
-    print "hello"
+    create_table()
+    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))

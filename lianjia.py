@@ -27,7 +27,7 @@ import sys
 import urllib2
 import time
 from bs4 import BeautifulSoup
-from my_sqldb import insert_info, update_info, get_row, create_table, alter_mysql
+from my_sqldb import insert_info, update_info, get_row, create_table
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -51,6 +51,7 @@ def get_house_href(total_page=2):
 
 
 def get_house(location="binjiang", current_id=1):
+    global location_chinese
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
     url = 'http://hz.lianjia.com/ershoufang/' + location
@@ -152,6 +153,8 @@ if __name__ == '__main__':
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     row = get_house('binjiang', row + 1)
+    print u'当前时间为：'
+    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house("jianggan", row + 1)
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
@@ -167,4 +170,4 @@ if __name__ == '__main__':
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house('xiacheng', row + 1)
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    alter_mysql()
+    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
