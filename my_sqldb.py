@@ -45,6 +45,8 @@ def create_table():
     except Exception as e:
         x = False
         print e
+        sql_script = "truncate table houseinfo" + current_data
+        cur.execute(sql_script)
     cur.close()
     conn.commit()
     conn.close()

@@ -153,7 +153,7 @@ if __name__ == '__main__':
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     row = get_house('binjiang', row + 1)
-    print u'当前时间为：'
+    print u'当前时间为：*************************************************'
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     row = get_house("jianggan", row + 1)

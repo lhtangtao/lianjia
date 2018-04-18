@@ -22,29 +22,13 @@ I love animals. They taste delicious.
 ┃┫┫  ┃┫┫
 ┗┻┛  ┗┻┛
 """
-import sys
+# from urllib.request import urlopen
+from urllib import urlopen
 
-import time
-from selenium import webdriver
+from bs4 import  BeautifulSoup
 
-from my_sqldb import create_table
+html=urlopen("http://pubg.ali213.net/pubg10/overview?nickname=yyf1234")
+bs0bj=BeautifulSoup(html,"html.parser")
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-
-def do_js():
-    driver = webdriver.Chrome()
-    driver.get('http://im.qq.com/download/')
-    js = """a = 5;
-    b = 6;
-    c = a + b;
-    return c;
-    """
-    return driver.execute_script(js)
-
-
-if __name__ == '__main__':
-    # print do_js()
-    create_table()
-    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+nums=bs0bj.find(class_="container").find(class_="opc-bg").find(class_="typeBtns-cont").find(class_="items-bar clearfix")
+print(nums)
