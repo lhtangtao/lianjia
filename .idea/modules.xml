@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../kaoqin/.idea/kaoqin.iml" filepath="$PROJECT_DIR$/../kaoqin/.idea/kaoqin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/lianjia.iml" filepath="$PROJECT_DIR$/.idea/lianjia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../modify_order_status/.idea/modify_order_status.iml" filepath="$PROJECT_DIR$/../modify_order_status/.idea/modify_order_status.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/参考文献/毕业/17dzWebUI-master/.idea/yqdzautoui.iml" filepath="$USER_HOME$/Desktop/参考文献/毕业/17dzWebUI-master/.idea/yqdzautoui.iml" />
     </modules>
   </component>
 </project>

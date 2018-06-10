@@ -67,6 +67,7 @@ def insert_info(kind, value):
         sql_script1 = "(%s) VALUES " % kind
         sql_script2 = "('%s')" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
+        # print sql_script
         cur.execute(sql_script)
         x = True
     except Exception as e:
@@ -108,6 +109,7 @@ def get_row():
     cur = conn.cursor()
     sql_script = 'SELECT * FROM houseinfo%s' % current_data
     # sql_script = 'SELECT * FROM houseinfo20170216'
+    # print sql_script
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()
