@@ -8,7 +8,7 @@ import uniout  # 没有这行就会出现数据库中无法读取中文
 import time
 
 time.localtime(time.time())
-current_data = time.strftime('%Y%m%d', time.localtime(time.time()))
+current_data = time.strftime('%Y_%m_%d', time.localtime(time.time()))
 
 
 def init_db():
@@ -21,7 +21,7 @@ def init_db():
         host='127.0.0.1',
         port=3306,
         user='root',
-        db='test',
+        db='lianjia',
         charset="utf8",  # 确保没有乱码
         passwd='root'
     )
@@ -37,16 +37,20 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = 'CREATE TABLE houseinfo' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
+        sql_script = 'CREATE TABLE ' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
+        print u'first sql ' + sql_script
         cur.execute(sql_script)
-        sql_script = "ALTER TABLE `test`.`houseinfo" + current_data + "` MODIFY COLUMN `Id` int(30) NOT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`Id`);"
+        sql_script = "ALTER TABLE `lianjia`.`" + current_data + "` MODIFY COLUMN `Id` int(30) NOT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`Id`);"
         cur.execute(sql_script)
+        print u"second sql" + sql_script
         x = True
     except Exception as e:
         x = False
         print e
-        sql_script = "truncate table houseinfo" + current_data
+        sql_script = "drop table " + current_data
         cur.execute(sql_script)
+        print u"third " + sql_script
+        create_table()
     cur.close()
     conn.commit()
     conn.close()
@@ -63,7 +67,7 @@ def insert_info(kind, value):
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script0 = "INSERT INTO houseinfo%s" % current_data
+        sql_script0 = "INSERT INTO %s" % current_data
         sql_script1 = "(%s) VALUES " % kind
         sql_script2 = "('%s')" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
@@ -83,7 +87,7 @@ def update_info(kind, value, id_num):
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script0 = "UPDATE houseinfo%s SET" % current_data
+        sql_script0 = "UPDATE %s SET" % current_data
         sql_script1 = " %s =" % kind
         sql_script2 = "('%s')" % value
         sql_script3 = "where id='%s'" % id_num
@@ -107,9 +111,7 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    sql_script = 'SELECT * FROM houseinfo%s' % current_data
-    # sql_script = 'SELECT * FROM houseinfo20170216'
-    # print sql_script
+    sql_script = 'SELECT * FROM %s' % current_data
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()

@@ -26,6 +26,8 @@ import re
 import sys
 import urllib2
 import time
+
+import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import insert_info, update_info, get_row, create_table
 
@@ -150,6 +152,7 @@ def get_house(location="binjiang", current_id=1):
 
 
 if __name__ == '__main__':
+    now_time_start = datetime.datetime.now()  # 现在
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     row = get_house('binjiang', row + 1)
@@ -171,3 +174,5 @@ if __name__ == '__main__':
     row = get_house('xiacheng', row + 1)
     print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    now_time_end = datetime.datetime.now()  # 现在
+    print (now_time_end - now_time_start)  # 计算时间差
