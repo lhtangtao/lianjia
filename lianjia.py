@@ -120,7 +120,10 @@ def get_house(location="binjiang", current_id=1):
 
         for positionInfo in soup.find_all('div', 'positionInfo'):
             village = positionInfo.get_text()
+            sub_location = village.split('-')[1].strip()
+            village = village.split('-')[0].strip()
             update_info("village", village, ID_num)
+            update_info("sub_location", sub_location, ID_num)
             ID_num += 1
         ID_num = current_id
 
@@ -161,8 +164,6 @@ def get_house(location="binjiang", current_id=1):
             update_info("url", url_text, ID_num)
             ID_num += 1
         current_id = ID_num
-        # print current_page
-        # print ID_num
         current_page += 1
     return get_row()
 
@@ -177,24 +178,6 @@ if __name__ == '__main__':
         row = get_house(localtion, row + 1)
         print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         print localtion + u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-
-    # row = get_house('binjiang', row + 1)
-    # print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house("jianggan", row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('gongshu', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('shangcheng', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('yuhang', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('xiaoshan', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('xihu', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
-    # row = get_house('xiacheng', row + 1)
-    # print u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start)  # 计算时间差
