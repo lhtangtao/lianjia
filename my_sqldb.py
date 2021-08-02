@@ -46,7 +46,9 @@ def create_table():
         x = True
     except Exception as e:
         x = False
+        print u"！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！出现报错请查看错误原因"
         print e
+        print u"错误打印完毕！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
         sql_script = "drop table " + current_data
         cur.execute(sql_script)
         print u"third " + sql_script
@@ -97,11 +99,12 @@ def update_info(kind, value, id_num):
         x = True
     except Exception as e:
         x = False
+        print u"！！！！！！！！！！！！！！！！！！！！插入sql的时候报错 原因如下："
         print e
     cur.close()
     conn.commit()
     conn.close()
-    return x
+    return sql_script
 
 
 def get_row():

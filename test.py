@@ -25,10 +25,18 @@ I love animals. They taste delicious.
 # from urllib.request import urlopen
 from urllib import urlopen
 
-from bs4 import  BeautifulSoup
+from bs4 import BeautifulSoup
 
-html=urlopen("http://pubg.ali213.net/pubg10/overview?nickname=yyf1234")
-bs0bj=BeautifulSoup(html,"html.parser")
+#
+# html = urlopen("http://pubg.ali213.net/pubg10/overview?nickname=yyf1234")
+# bs0bj = BeautifulSoup(html, "html.parser")
+#
+# nums = bs0bj.find(class_="container").find(class_="opc-bg").find(class_="typeBtns-cont").find(
+#     class_="items-bar clearfix")
+# print(nums)
 
-nums=bs0bj.find(class_="container").find(class_="opc-bg").find(class_="typeBtns-cont").find(class_="items-bar clearfix")
-print(nums)
+if __name__ == '__main__':
+    context = u"1室1厅 | 71.89平米 | 南 | 精装 | 28层  | 板楼"
+    square = context.split('|')[1][:-3]
+
+    print square
