@@ -93,6 +93,9 @@ def get_house(location="binjiang", current_id=1):
         if error == u"验证异常流量-链家网":
             print u'ip被封 请尝试更换代理'
             return get_row()
+        elif error == u"人机认证":
+            print u'ip被封 请尝试更换代理'
+            return get_row()
         else:
             pass
     except:
@@ -169,15 +172,18 @@ def get_house(location="binjiang", current_id=1):
 
 
 if __name__ == '__main__':
-    now_time_start = datetime.datetime.now()  # 现在
+    now_time_start_all = datetime.datetime.now()  # 现在
     localtion_list = ["binjiang", "xihu", "qiantangqu", "linpingqu", "gongshu", "shangcheng", "yuhang", "xiaoshan",
                       "tonglu1", "linan", "chunan1", "jiande", "fuyang"]
     create_table()
     row = get_row()  # 获取数据库中有多少行数据
     for localtion in localtion_list:
+        now_time_start= datetime.datetime.now()  # 现在
         row = get_house(localtion, row + 1)
         print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        print localtion + u'总计已采集数据量为' + str(row) + '    ' + str(time.clock())
+        now_time_end = datetime.datetime.now()  # 现在
+        print localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
+        time.sleep(60*5)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
-    print (now_time_end - now_time_start)  # 计算时间差
+    print (now_time_end - now_time_start_all)  # 计算时间差

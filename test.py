@@ -36,7 +36,9 @@ from bs4 import BeautifulSoup
 # print(nums)
 
 if __name__ == '__main__':
-    context = u"1室1厅 | 71.89平米 | 南 | 精装 | 28层  | 板楼"
-    square = context.split('|')[1][:-3]
+    while True:
+        source=input("What is your name?")
+        if source != "1":
+            break
+    print "hahah"
 
-    print square
