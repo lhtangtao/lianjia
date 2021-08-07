@@ -37,8 +37,9 @@ from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
     while True:
-        source=input("What is your name?")
-        if source != "1":
+        source=raw_input("What is your name?")
+        if source != "111111":
             break
     print "hahah"
+
 
