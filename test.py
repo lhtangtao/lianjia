@@ -36,10 +36,8 @@ from bs4 import BeautifulSoup
 # print(nums)
 
 if __name__ == '__main__':
-    while True:
-        source=raw_input("What is your name?")
-        if source != "111111":
-            break
-    print "hahah"
+    test = open("./city_file/NB","r")
+    print test.read(10)
+    test.close()
 
 

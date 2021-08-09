@@ -30,7 +30,7 @@ import time
 import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import insert_info, update_info, get_row, create_table
-from cities import city_region, get_city_name
+from cities import city_region, get_city_name,get_sub_location
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -61,21 +61,6 @@ def continue_action():
 #         for title in soup.find_all('div', 'title'):
 #             print type(title.a)
 #         i += 1
-def get_sub_location():
-    global location_souce
-    req = urllib2.Request("http://nb.lianjia.com/ershoufang/haishuqu1/pg1/")
-    page = urllib2.urlopen(req)
-    soup = BeautifulSoup(page, "html.parser")
-
-    for link in soup.find_all("div", attrs={'data-role': "ershoufang"}):
-        location_souce = link.find_all("div")[0]
-        for location in location_souce.find_all("a"):
-            print location.get("href")
-            print location.get("title")
-        sub_location_source = link.find_all("div")[1]
-        for sub_location in sub_location_source.find_all("a"):
-            print sub_location.get("href")
-            print sub_location.text
     # print location_souce
 
 
