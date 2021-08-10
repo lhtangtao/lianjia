@@ -24,7 +24,7 @@ def write_sub_location(city="hz"):
     """
     file_address = "./city_file/" + city
     open(file_address, "w+")
-    list_location = get_location("http://"+city+".lianjia.com/ershoufang/")
+    list_location = get_location("http://" + city + ".lianjia.com/ershoufang/")
     for i in range(len(list_location)):
 
         url_to_add = list_location[i].split("=")[1]
@@ -41,5 +41,15 @@ def write_sub_location(city="hz"):
             print list_location[i] + u"这个区没有数据"
 
 
+def read_sub_location(city="HZ"):
+    list_dst = []
+    file_address = "./city_file/" + city
+    for line in open(file_address):
+        # print line
+        list_dst.append(line.split("=")[1].replace("\n",""))
+    return list_dst
+
+
 if __name__ == '__main__':
-    write_sub_location("nb")
+    # write_sub_location("NB")
+    print read_sub_location()[1]

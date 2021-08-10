@@ -30,7 +30,8 @@ import time
 import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import insert_info, update_info, get_row, create_table
-from cities import city_region, get_city_name,get_sub_location
+from cities import city_region, get_city_name, get_sub_location
+from file_action import read_sub_location
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -61,19 +62,20 @@ def continue_action():
 #         for title in soup.find_all('div', 'title'):
 #             print type(title.a)
 #         i += 1
-    # print location_souce
+# print location_souce
 
 
 def get_house(city="HZ", location="binjiang", current_id=1):
     global location_chinese
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
-    if city == "HZ":
-        url_source = 'http://hz.lianjia.com/ershoufang/' + location
-    elif city == "NB":
-        url_source = 'http://nb.lianjia.com/ershoufang/' + location
-    else:
-        url_source = 'http://hz.lianjia.com/ershoufang/' + location
+    url_source = "http://" + city + ".lianjia.com" + location
+    # if city == "HZ":
+    #     url_source = 'http://hz.lianjia.com' + location
+    # elif city == "NB":
+    #     url_source = 'http://nb.lianjia.com' + location
+    # else:
+    #     url_source = 'http://hz.lianjia.com' + location
     req = urllib2.Request(url_source)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
@@ -169,14 +171,15 @@ def get_house(city="HZ", location="binjiang", current_id=1):
 
 def gather(city="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
-    if city == "HZ":
-        localtion_list = ["binjiang", "xihu", "qiantangqu", "linpingqu", "gongshu", "shangcheng", "yuhang", "xiaoshan",
-                          "tonglu1", "linan", "chunan1", "jiande", "fuyang"]
-    elif city == "NB":
-        localtion_list = ["haishuqu1", "jiangbeiqu1", "zhenhaiqu1", "beilunqu1", "yinzhouqu2", "yuyaoshi", "cixishi",
-                          "fenghuaqu", "xiangshanxian", "ninghaixian", "hangzhouwanxinqu1"]
-    else:
-        localtion_list = []
+    localtion_list = read_sub_location(city)
+    # if city == "HZ":
+    #     localtion_list = ["binjiang", "xihu", "qiantangqu", "linpingqu", "gongshu", "shangcheng", "yuhang", "xiaoshan",
+    #                       "tonglu1", "linan", "chunan1", "jiande", "fuyang"]
+    # elif city == "NB":
+    #     localtion_list = ["haishuqu1", "jiangbeiqu1", "zhenhaiqu1", "beilunqu1", "yinzhouqu2", "yuyaoshi", "cixishi",
+    #                       "fenghuaqu", "xiangshanxian", "ninghaixian", "hangzhouwanxinqu1"]
+    # else:
+    #     localtion_list = []
     row = get_row()  # 获取数据库中有多少行数据
     for localtion in localtion_list:
         now_time_start = datetime.datetime.now()  # 现在
@@ -184,16 +187,16 @@ def gather(city="HZ"):
         print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         now_time_end = datetime.datetime.now()  # 现在
         print localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-        print u"强制等待两分钟"
-        time.sleep(60 * 2)
+        print u"强制等待一分钟"
+        time.sleep(60 * 1)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
 
 
 if __name__ == '__main__':
-    # create_table()
-    # gather("HZ")
+    create_table()
+    gather("HZ")
     # gather("NB")
 
     get_sub_location()
