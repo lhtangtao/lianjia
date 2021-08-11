@@ -77,7 +77,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
             total_page = 100
         print total_page
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
-        url = url_source + '/pg' + str(current_page) + '/'
+        url = url_source + 'pg' + str(current_page) + '/'
         print url
         page = urllib2.urlopen(url)
         try:
@@ -160,7 +160,8 @@ def gather(city="HZ"):
         row = get_house(city, sub_localtion, row + 1)
         now_time_end = datetime.datetime.now()  # 现在
         print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-        print u"强制等待半分钟"
+        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        print u"强制等待10秒"
         time.sleep(10 * 1)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
@@ -170,6 +171,6 @@ def gather(city="HZ"):
 if __name__ == '__main__':
     create_table()
     # gather("quanzhou")
-    gather("NB")
+    gather("HZ")
 
     # get_sub_location()
