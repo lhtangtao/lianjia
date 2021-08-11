@@ -73,7 +73,9 @@ def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
         print sub_location + u'一共有' + total_house + u'套房子'
         total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-
+        if total_page > 100:
+            total_page = 100
+        print total_page
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
         url = url_source + '/pg' + str(current_page) + '/'
         print url
@@ -159,7 +161,7 @@ def gather(city="HZ"):
         now_time_end = datetime.datetime.now()  # 现在
         print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
         print u"强制等待半分钟"
-        time.sleep(3 * 1)
+        time.sleep(10 * 1)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
@@ -169,6 +171,5 @@ if __name__ == '__main__':
     create_table()
     # gather("quanzhou")
     gather("NB")
-
 
     # get_sub_location()
