@@ -151,7 +151,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
 
 def gather(city="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
-    # write_sub_location(city)  # 把该城市下的二级区域获取
+    write_sub_location(city)  # 把该城市下的二级区域获取
     localtion_list = read_sub_location(city)
     row = get_row()  # 获取数据库中有多少行数据
     for sub_localtion in localtion_list:
@@ -171,6 +171,6 @@ def gather(city="HZ"):
 if __name__ == '__main__':
     create_table()
     # gather("quanzhou")
-    gather("HZ")
+    # gather("taizhou")
 
     # get_sub_location()
