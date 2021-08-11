@@ -39,17 +39,39 @@ def write_sub_location(city="hz"):
                 test.write(x + '\n')
         except:
             print list_location[i] + u"这个区没有数据"
+    clear(city)
 
 
 def read_sub_location(city="HZ"):
     list_dst = []
     file_address = "./city_file/" + city
     for line in open(file_address):
-        # print line
-        list_dst.append(line.split("=")[1].replace("\n",""))
+        list_dst.append(line.split("=")[1].replace("\n", ""))
     return list_dst
 
 
+def clear(city="NB"):
+    """
+    文件夹去重
+    :param city:
+    :return:
+    """
+    file_list = []
+    file_address = "./city_file/" + city
+    with open(file_address, "r") as f:
+        file_2 = f.readlines()
+        for file in file_2:
+            file_list.append(file)
+        out_file1 = set(file_list)  # set()函数可以自动过滤掉重复元素
+        last_out_file = list(out_file1)
+        open(file_address, "w")
+        for out in last_out_file:
+            with open(file_address, "a+") as f:  # 去重后文件写入文件里
+                f.write(out)
+
+
 if __name__ == '__main__':
-    # write_sub_location("NB")
-    print read_sub_location()[1]
+    write_sub_location("HZ")
+    # clear("NB")
+
+    # print read_sub_location()[1]

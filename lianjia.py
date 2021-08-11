@@ -30,8 +30,8 @@ import time
 import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import insert_info, update_info, get_row, create_table
-from cities import city_region, get_city_name, get_sub_location
-from file_action import read_sub_location
+from cities import get_city_name, get_sub_location
+from file_action import read_sub_location, write_sub_location
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -47,39 +47,13 @@ def continue_action():
     print u"已解除封印，可继续执行"
 
 
-#
-#
-# def get_house_href(total_page=2):
-#     """
-#     获取文本后面的链接网址
-#     :return:无
-#     """
-#     i = 1
-#     while i < total_page:
-#         url = 'http://hz.lianjia.com/ershoufang/binjiang/pg' + str(i) + '/'
-#         page = urllib2.urlopen(url)
-#         soup = BeautifulSoup(page, "html.parser")
-#         for title in soup.find_all('div', 'title'):
-#             print type(title.a)
-#         i += 1
-# print location_souce
-
-
-def get_house(city="HZ", location="binjiang", current_id=1):
-    global location_chinese
+def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
-    url_source = "http://" + city + ".lianjia.com" + location
-    # if city == "HZ":
-    #     url_source = 'http://hz.lianjia.com' + location
-    # elif city == "NB":
-    #     url_source = 'http://nb.lianjia.com' + location
-    # else:
-    #     url_source = 'http://hz.lianjia.com' + location
+    url_source = "http://" + city + ".lianjia.com" + sub_location
     req = urllib2.Request(url_source)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
-    location_chinese = city_region(city, location)
     try:
         error = soup.title.text
         if error == u"验证异常流量-链家网":
@@ -97,7 +71,7 @@ def get_house(city="HZ", location="binjiang", current_id=1):
         context = link.get_text()
         # print context #示例是   共找到 3435 套滨江二手房with(document)write('<a href="/ershoufang/"><span></span>清空条件</a>');保存搜索
         total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
-        print location + u'一共有' + total_house + u'套房子'
+        print sub_location + u'一共有' + total_house + u'套房子'
         total_page = int(total_house) / 30 + 1  # 求出一共有多少页
 
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
@@ -109,6 +83,10 @@ def get_house(city="HZ", location="binjiang", current_id=1):
         except:
             print url
             print soup
+        list_temp = []
+        for link in soup.find_all("a", attrs={'class': "selected"}):
+            list_temp.append(link.get_text().split("\n")[0])
+        location_chinese = list_temp[1]
         ID_num = current_id
         city_name = get_city_name(city)
         for price in soup.find_all('div', 'totalPrice'):  # 总价的信息
@@ -171,24 +149,17 @@ def get_house(city="HZ", location="binjiang", current_id=1):
 
 def gather(city="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
+    # write_sub_location(city)  # 把该城市下的二级区域获取
     localtion_list = read_sub_location(city)
-    # if city == "HZ":
-    #     localtion_list = ["binjiang", "xihu", "qiantangqu", "linpingqu", "gongshu", "shangcheng", "yuhang", "xiaoshan",
-    #                       "tonglu1", "linan", "chunan1", "jiande", "fuyang"]
-    # elif city == "NB":
-    #     localtion_list = ["haishuqu1", "jiangbeiqu1", "zhenhaiqu1", "beilunqu1", "yinzhouqu2", "yuyaoshi", "cixishi",
-    #                       "fenghuaqu", "xiangshanxian", "ninghaixian", "hangzhouwanxinqu1"]
-    # else:
-    #     localtion_list = []
     row = get_row()  # 获取数据库中有多少行数据
-    for localtion in localtion_list:
+    for sub_localtion in localtion_list:
         now_time_start = datetime.datetime.now()  # 现在
-        row = get_house(city, localtion, row + 1)
         print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        row = get_house(city, sub_localtion, row + 1)
         now_time_end = datetime.datetime.now()  # 现在
-        print localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-        print u"强制等待一分钟"
-        time.sleep(60 * 1)
+        print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
+        print u"强制等待半分钟"
+        time.sleep(3 * 1)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
@@ -196,7 +167,8 @@ def gather(city="HZ"):
 
 if __name__ == '__main__':
     create_table()
-    gather("HZ")
-    # gather("NB")
+    # gather("quanzhou")
+    gather("NB")
 
-    get_sub_location()
+
+    # get_sub_location()

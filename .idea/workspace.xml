@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="410292e4-d3c6-45e3-9149-5ed407128ccb" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/city_file/HZ" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/city_file/NB" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/file_action.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/cities.py" afterPath="$PROJECT_DIR$/cities.py" />
+      <change beforePath="$PROJECT_DIR$/city_file/HZ" afterPath="$PROJECT_DIR$/city_file/HZ" />
+      <change beforePath="$PROJECT_DIR$/city_file/NB" afterPath="$PROJECT_DIR$/city_file/NB" />
+      <change beforePath="$PROJECT_DIR$/file_action.py" afterPath="$PROJECT_DIR$/file_action.py" />
       <change beforePath="$PROJECT_DIR$/lianjia.py" afterPath="$PROJECT_DIR$/lianjia.py" />
+      <change beforePath="$PROJECT_DIR$/my_sqldb.py" afterPath="$PROJECT_DIR$/my_sqldb.py" />
       <change beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,17 +19,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/lianjia$my_sqldb.coverage" NAME="my_sqldb Coverage Results" MODIFIED="1627895395939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lianjia$my_sqldb.coverage" NAME="my_sqldb Coverage Results" MODIFIED="1628663832728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lianjia$main.coverage" NAME="main Coverage Results" MODIFIED="1525766404658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../kaoqin" />
     <SUITE FILE_PATH="coverage/lianjia$ip.coverage" NAME="ip Coverage Results" MODIFIED="1524381719442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ip1" />
-    <SUITE FILE_PATH="coverage/lianjia$lianjia.coverage" NAME="lianjia Coverage Results" MODIFIED="1628330523838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lianjia$lianjia.coverage" NAME="lianjia Coverage Results" MODIFIED="1628663986891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lianjia$sql.coverage" NAME="sql Coverage Results" MODIFIED="1525944481573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../modify_order_status" />
     <SUITE FILE_PATH="coverage/lianjia$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1526369456741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../modify_order_status" />
-    <SUITE FILE_PATH="coverage/lianjia$test.coverage" NAME="test Coverage Results" MODIFIED="1628330294313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lianjia$test.coverage" NAME="test Coverage Results" MODIFIED="1628657047510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/lianjia$get_customer_id.coverage" NAME="get_customer_id Coverage Results" MODIFIED="1526019504800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../modify_order_status" />
     <SUITE FILE_PATH="coverage/lianjia$update_order_status.coverage" NAME="update_order_status Coverage Results" MODIFIED="1526020765064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../modify_order_status" />
     <SUITE FILE_PATH="coverage/lianjia$cities.coverage" NAME="cities Coverage Results" MODIFIED="1628513069720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/lianjia$file_action.coverage" NAME="file_action Coverage Results" MODIFIED="1628502613097" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lianjia$file_action.coverage" NAME="file_action Coverage Results" MODIFIED="1628654928916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -38,9 +39,11 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="12" lean-forward="true" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-              <folding />
+            <state relative-caret-position="555">
+              <caret line="37" column="51" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="51" />
+              <folding>
+                <element signature="e#469#495#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,18 +51,42 @@
       <file leaf-file-name="file_action.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file_action.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="236">
+              <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+              <folding>
+                <element signature="e#213#262#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lianjia.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lianjia.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="160" column="24" lean-forward="true" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
+              <folding>
+                <element signature="e#432#441#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urllib2.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/python/2.7.14_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NB" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/city_file/NB">
+      <file leaf-file-name="quanzhou" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/city_file/quanzhou">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="34" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -68,30 +95,28 @@
       <file leaf-file-name="HZ" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/city_file/HZ">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lianjia.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lianjia.py">
+      <file leaf-file-name="NB" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/city_file/NB">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="637">
-              <caret line="71" column="55" lean-forward="false" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="55" />
-              <folding>
-                <element signature="e#432#441#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="191">
+              <caret line="74" column="23" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cities.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="115" column="34" lean-forward="true" selection-start-line="123" selection-start-column="14" selection-end-line="123" selection-end-column="15" />
+            <state relative-caret-position="94">
+              <caret line="29" column="14" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
               <folding>
                 <element signature="e#212#226#0" expanded="true" />
               </folding>
@@ -109,15 +134,15 @@
       <file leaf-file-name="my_sqldb.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/my_sqldb.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="226">
+              <caret line="36" column="20" lean-forward="true" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
               <folding>
                 <element signature="e#46#60#0" expanded="true" />
-                <marker date="1628247102234" expanded="true" signature="1178:1219" ph="ALTER TABLE `lianjia`.... " />
-                <marker date="1628247102234" expanded="true" signature="1178:1546" ph="ALTER TABLE `test`.`houseinfomissing_value`... " />
-                <marker date="1628247102234" expanded="true" signature="1839:1850" ph="drop table h... " />
-                <marker date="1628247102234" expanded="true" signature="2212:2224" ph="INSERT INTO houseinfomissing_value... " />
-                <marker date="1628247102234" expanded="true" signature="3322:3336" ph="SELECT * FRO... houseinfomissing_value" />
+                <marker date="1628663986885" expanded="true" signature="1179:1220" ph="ALTER TABLE `lianjia`.... " />
+                <marker date="1628663986885" expanded="true" signature="1179:1547" ph="ALTER TABLE `test`.`houseinfomissing_value`... " />
+                <marker date="1628663986885" expanded="true" signature="1840:1851" ph="drop table h... " />
+                <marker date="1628663986885" expanded="true" signature="2213:2225" ph="INSERT INTO houseinfomissing_value... " />
+                <marker date="1628663986885" expanded="true" signature="3323:3337" ph="SELECT * FRO... houseinfomissing_value" />
               </folding>
             </state>
           </provider>
@@ -134,30 +159,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>is_element</find>
-      <find>16495442</find>
-      <find>16495542</find>
-      <find>test</find>
-      <find>当前时间为</find>
-      <find>houseinfo</find>
-      <find>con</find>
-      <find>url</find>
-      <find>villa</find>
-      <find>ID_num</find>
-      <find>location_chinese</find>
-      <find>套房子</find>
-      <find>get_house_href</find>
-      <find>context</find>
-      <find>location</find>
-      <find>pg</find>
-      <find>id_num</find>
-      <find>current_id</find>
-      <find>text</find>
-      <find>get_sub_location</find>
-      <find>print</find>
-      <find>在售</find>
       <find>href</find>
+      <find>localtion_list</find>
+      <find>print</find>
+      <find>杭州湾新区</find>
+      <find>周巷=/ershoufang/zhouxiang/</find>
+      <find>杭州湾新区=/ershoufang/hangzhouwanxinqu/</find>
+      <find>等待</find>
+      <find>xinyifang</find>
+      <find>chengdongxincheng</find>
+      <find>sanliting</find>
+      <find>shiqiao</find>
+      <find>aoti</find>
+      <find>sub_location</find>
+      <find>title</find>
+      <find>puyan</find>
+      <find>feicuicheng1</find>
+      <find>renhe2</find>
+      <find>wandaguangchang2</find>
+      <find>dajiangdong</find>
+      <find>guali</find>
+      <find>baimahu</find>
+      <find>sele</find>
+      <find>location_chinese</find>
+      <find>text</find>
+      <find>wrong location</find>
+      <find>chines</find>
+      <find>clear</find>
+      <find>second</find>
       <find>sub</find>
+      <find>zhong</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -176,12 +207,14 @@
         <option value="$PROJECT_DIR$/../modify_order_status/update_order_status.py" />
         <option value="$PROJECT_DIR$/../modify_order_status/sql.py" />
         <option value="$PROJECT_DIR$/../modify_order_status/main.py" />
-        <option value="$PROJECT_DIR$/my_sqldb.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/city_file/NB" />
-        <option value="$PROJECT_DIR$/lianjia.py" />
+        <option value="$PROJECT_DIR$/city_file/HZ" />
+        <option value="$PROJECT_DIR$/result.txt" />
         <option value="$PROJECT_DIR$/file_action.py" />
+        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/cities.py" />
+        <option value="$PROJECT_DIR$/lianjia.py" />
+        <option value="$PROJECT_DIR$/my_sqldb.py" />
       </list>
     </option>
   </component>
@@ -251,7 +284,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cities">
+  <component name="RunManager" selected="Python.lianjia">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -494,11 +527,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.cities" />
-        <item index="1" class="java.lang.String" itemvalue="Python.file_action" />
-        <item index="2" class="java.lang.String" itemvalue="Python.lianjia" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test" />
-        <item index="4" class="java.lang.String" itemvalue="Python.my_sqldb" />
+        <item index="0" class="java.lang.String" itemvalue="Python.lianjia" />
+        <item index="1" class="java.lang.String" itemvalue="Python.my_sqldb" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.file_action" />
+        <item index="4" class="java.lang.String" itemvalue="Python.cities" />
       </list>
     </recent_temporary>
   </component>
@@ -551,7 +584,28 @@
       <option name="project" value="LOCAL" />
       <updated>1628329686162</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="在实现区的下一级单位获取数据的路上">
+      <created>1628513187409</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1628513187409</updated>
+    </task>
+    <task id="LOCAL-00007" summary="在实现区的下一级单位获取数据 并存放到指定的文件上">
+      <created>1628575617713</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1628575617713</updated>
+    </task>
+    <task id="LOCAL-00008" summary="下一步实现文件去重操作  目前是二级区域中存在重复的地址">
+      <created>1628598571998</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1628598571998</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -584,22 +638,22 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15081723" sideWeight="0.5015625" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19856705" sideWeight="0.4984375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2123431" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2345238" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285568" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16422467" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39918116" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39970282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +668,10 @@
     <MESSAGE value="修改结构，新增街道社区信息" />
     <MESSAGE value="加了点手段，避免出现被反爬虫" />
     <MESSAGE value="修改了获取行政区域的方式，变成了直接从页面获取" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改了获取行政区域的方式，变成了直接从页面获取" />
+    <MESSAGE value="在实现区的下一级单位获取数据的路上" />
+    <MESSAGE value="在实现区的下一级单位获取数据 并存放到指定的文件上" />
+    <MESSAGE value="下一步实现文件去重操作  目前是二级区域中存在重复的地址" />
+    <option name="LAST_COMMIT_MESSAGE" value="下一步实现文件去重操作  目前是二级区域中存在重复的地址" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -624,38 +681,11 @@
           <line>4</line>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lianjia.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#432#441#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="29" column="69" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lianjia.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#432#441#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -794,14 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.14_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/img/111.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -823,42 +845,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/city_file/NB">
+    <entry file="file:///usr/local/lib/python2.7/site-packages/typing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="252">
+          <caret line="2107" column="8" lean-forward="false" selection-start-line="2107" selection-start-column="8" selection-end-line="2107" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/city_file/HZ">
+    <entry file="file://$PROJECT_DIR$/result.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_action.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="668">
+          <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="true" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+        <state relative-caret-position="555">
+          <caret line="37" column="51" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="51" />
+          <folding>
+            <element signature="e#469#495#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="29" column="14" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
+          <folding>
+            <element signature="e#212#226#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_action.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding>
+            <element signature="e#213#262#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.14_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lianjia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="71" column="55" lean-forward="false" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="55" />
+        <state relative-caret-position="436">
+          <caret line="160" column="24" lean-forward="true" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
           <folding>
             <element signature="e#432#441#0" expanded="true" />
           </folding>
@@ -867,26 +911,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/my_sqldb.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="226">
+          <caret line="36" column="20" lean-forward="true" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
           <folding>
             <element signature="e#46#60#0" expanded="true" />
-            <marker date="1628247102234" expanded="true" signature="1178:1219" ph="ALTER TABLE `lianjia`.... " />
-            <marker date="1628247102234" expanded="true" signature="1178:1546" ph="ALTER TABLE `test`.`houseinfomissing_value`... " />
-            <marker date="1628247102234" expanded="true" signature="1839:1850" ph="drop table h... " />
-            <marker date="1628247102234" expanded="true" signature="2212:2224" ph="INSERT INTO houseinfomissing_value... " />
-            <marker date="1628247102234" expanded="true" signature="3322:3336" ph="SELECT * FRO... houseinfomissing_value" />
+            <marker date="1628663986885" expanded="true" signature="1179:1220" ph="ALTER TABLE `lianjia`.... " />
+            <marker date="1628663986885" expanded="true" signature="1179:1547" ph="ALTER TABLE `test`.`houseinfomissing_value`... " />
+            <marker date="1628663986885" expanded="true" signature="1840:1851" ph="drop table h... " />
+            <marker date="1628663986885" expanded="true" signature="2213:2225" ph="INSERT INTO houseinfomissing_value... " />
+            <marker date="1628663986885" expanded="true" signature="3323:3337" ph="SELECT * FRO... houseinfomissing_value" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cities.py">
+    <entry file="file://$PROJECT_DIR$/city_file/quanzhou">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="115" column="34" lean-forward="true" selection-start-line="123" selection-start-column="14" selection-end-line="123" selection-end-column="15" />
-          <folding>
-            <element signature="e#212#226#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="34" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/city_file/HZ">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/city_file/NB">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="74" column="23" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>

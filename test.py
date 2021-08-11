@@ -26,18 +26,14 @@ I love animals. They taste delicious.
 from urllib import urlopen
 
 from bs4 import BeautifulSoup
-
-#
-# html = urlopen("http://pubg.ali213.net/pubg10/overview?nickname=yyf1234")
-# bs0bj = BeautifulSoup(html, "html.parser")
-#
-# nums = bs0bj.find(class_="container").find(class_="opc-bg").find(class_="typeBtns-cont").find(
-#     class_="items-bar clearfix")
-# print(nums)
+import urllib2
 
 if __name__ == '__main__':
-    test = open("./city_file/NB","r")
-    print test.read(10)
-    test.close()
-
-
+    req = urllib2.Request("http://HZ.lianjia.com/ershoufang/cuiyuan//pg2/")
+    page = urllib2.urlopen(req)
+    soup = BeautifulSoup(page, "html.parser")
+    # print soup
+    list=[]
+    for link in soup.find_all("a", attrs={'class': "selected"}):
+        list.append(link.get_text().split("\n")[0])
+    print list[1]
