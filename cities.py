@@ -29,6 +29,12 @@ def get_city_name(city="HZ"):
         return u"宁波"
     if city == "quanzhou":
         return u"泉州"
+    if city == "WZ":
+        return u"温州"
+    if city == "taizhou":
+        return u"台州"
+    if city == "SX":
+        return u"绍兴"
 
 
 def get_location(url="http://hz.lianjia.com/ershoufang/"):
