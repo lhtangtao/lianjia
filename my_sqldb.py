@@ -8,7 +8,7 @@ import uniout  # 没有这行就会出现数据库中无法读取中文
 import time
 
 time.localtime(time.time())
-current_data = time.strftime('%Y_%m_%d', time.localtime(time.time()))
+current_date = time.strftime('%Y_%m_%d', time.localtime(time.time()))
 
 
 def init_db():
@@ -37,10 +37,10 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = 'CREATE TABLE ' + current_data + ' (Id varchar(30) ,current_data varchar(30),city varchar(30),location varchar(30),sub_location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
+        sql_script = 'CREATE TABLE ' + current_date + ' (date varchar(30),city varchar(30),location varchar(30),sub_location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
         print u'first sql ' + sql_script
         cur.execute(sql_script)
-        sql_script = "ALTER TABLE `lianjia`.`" + current_data + "` MODIFY COLUMN `Id` int(30) NOT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`Id`);"
+        sql_script = "ALTER TABLE `lianjia`.`" + current_date + "`MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`url`);"
         cur.execute(sql_script)
         print u"second sql" + sql_script
         x = True
@@ -49,7 +49,7 @@ def create_table():
         print u"！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！出现报错请查看错误原因"
         print e
         print u"错误打印完毕！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
-        sql_script = "drop table " + current_data
+        sql_script = "drop table " + current_date
         cur.execute(sql_script)
         print u"third " + sql_script
         create_table()
@@ -59,52 +59,29 @@ def create_table():
     return x
 
 
-def insert_info(kind, value):
+def insert_info(value):
     """
     要插入的数据列名和数值
-    :param kind:
     :param value:
     :return:
     """
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script0 = "INSERT INTO %s" % current_data
-        sql_script1 = "(%s) VALUES " % kind
-        sql_script2 = "('%s')" % value
+        sql_script0 = "INSERT INTO %s" % current_date
+        sql_script1 = ' (date,city,location,sub_location,village,house_type,square,orientation,decorate,money,' \
+                      'per_square,url,page) VALUES '
+        sql_script2 = "(%s)" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
-        # print sql_script
         cur.execute(sql_script)
         x = True
     except Exception as e:
         x = False
-        print e
+        # print e
     cur.close()
     conn.commit()
     conn.close()
     return x
-
-
-def update_info(kind, value, id_num):
-    conn = init_db()
-    cur = conn.cursor()
-    try:
-        sql_script0 = "UPDATE %s SET" % current_data
-        sql_script1 = " %s =" % kind
-        sql_script2 = "('%s')" % value
-        sql_script3 = "where id='%s'" % id_num
-        sql_script = sql_script0 + sql_script1 + sql_script2 + sql_script3
-        # print sql_script
-        cur.execute(sql_script)
-        x = True
-    except Exception as e:
-        x = False
-        print u"！！！！！！！！！！！！！！！！！！！！插入sql的时候报错 原因如下："
-        print e
-    cur.close()
-    conn.commit()
-    conn.close()
-    return sql_script
 
 
 def get_row():
@@ -114,7 +91,7 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    sql_script = 'SELECT * FROM %s' % current_data
+    sql_script = 'SELECT * FROM %s' % current_date
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()
@@ -123,5 +100,6 @@ def get_row():
 
 
 if __name__ == '__main__':
-    print create_table()
-    print get_row()
+    # print create_table()
+    # print get_row()
+    insert_info(3)

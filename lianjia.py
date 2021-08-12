@@ -29,7 +29,7 @@ import time
 
 import datetime
 from bs4 import BeautifulSoup
-from my_sqldb import insert_info, update_info, get_row, create_table
+from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
 from file_action import read_sub_location, write_sub_location
 
@@ -149,7 +149,7 @@ def continue_action():
 #     return get_row()
 
 
-def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
+def get_house(city="quanzhou", sub_location="baolongguangchang"):
     global city_name, location_chinese
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
@@ -218,9 +218,10 @@ def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
                 orientation = context.split('|')[4]
             if len(context.split("|")) >= 5:
                 decorate = context.split('|')[4]
-                list_decorate.append(decorate)
+
             else:
-                pass
+                decorate = " "
+            list_decorate.append(decorate)
             list_house_type.append(house_type)
             list_square.append(square)
             list_orientation.append(orientation)
@@ -242,9 +243,19 @@ def get_house(city="quanzhou", sub_location="baolongguangchang", current_id=1):
             url_text = price.get('href')
             list_url_text.append(url_text)
         for i in range(len(list_money)):
-            print city_name + location_chinese + sub_location + list_village[i] + list_house_type[
-                i] + list_square[i] + list_orientation[i] + list_decorate[i] + list_money[i] + list_per_square[i] + \
-                  list_url_text[i]
+            try:
+                insert_info(
+                    '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location + '","' +
+                    list_village[
+                        i] + '","' + list_house_type[
+                        i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
+                    list_money[
+                        i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(current_page) + '"')
+            except:
+                print list_money[i]
+                print len(list_decorate)
+                for i in range(len(list_decorate)):
+                    print list_decorate[i]
         current_page += 1
     return get_row()
 
