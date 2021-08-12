@@ -282,5 +282,5 @@ def gather(city="HZ"):
 if __name__ == '__main__':
     create_table()
     gather("HZ")
-    # gather("taizhou")
-    # get_sub_location()
+    gather("taizhou")
+
