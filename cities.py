@@ -35,6 +35,16 @@ def get_city_name(city="HZ"):
         return u"台州"
     if city == "SX":
         return u"绍兴"
+    if city == "huzhou":
+        return u"湖州"
+    if city == "JX":
+        return u"嘉兴"
+    if city == "JH":
+        return u"金华"
+    if city == "quzhou":
+        return u"衢州"
+    if city  == "QD":
+        return u"青岛"
 
 
 def get_location(url="http://hz.lianjia.com/ershoufang/"):

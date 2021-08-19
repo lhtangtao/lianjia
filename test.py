@@ -29,11 +29,13 @@ from bs4 import BeautifulSoup
 import urllib2
 
 if __name__ == '__main__':
-    req = urllib2.Request("http://HZ.lianjia.com/ershoufang/cuiyuan//pg2/")
-    page = urllib2.urlopen(req)
-    soup = BeautifulSoup(page, "html.parser")
-    # print soup
-    list=[]
-    for link in soup.find_all("a", attrs={'class': "selected"}):
-        list.append(link.get_text().split("\n")[0])
-    print list[1]
+    village = u" 延安三路10-12、16-28（双号）    -  北仲 "
+    x = ""
+    # village = u"利津路32-40（双号）    -  海泊河 "
+    if len(village.split("-")) > 2:
+        village = village.replace(" ", "")
+        print village
+        for i in range(len(village.split("-"))-1):
+            print village.split("-")[i]
+            x = x + village.split("-")[i]
+    print x

@@ -29,7 +29,7 @@ def init_db():
     return connect
 
 
-def create_table():
+def create_table(drop=True):
     """
     创建一张表，如果这个表存在的话则跳过 必须要确保数据库名字为test且存在
     :return: 如果存在 返回False，如果不存在则会建立一张表并且返回true
@@ -49,10 +49,11 @@ def create_table():
         print u"！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！出现报错请查看错误原因"
         print e
         print u"错误打印完毕！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
-        sql_script = "drop table " + current_date
-        cur.execute(sql_script)
-        print u"third " + sql_script
-        create_table()
+        if drop == True:
+            sql_script = "drop table " + current_date
+            cur.execute(sql_script)
+            print u"third " + sql_script
+            create_table()
     cur.close()
     conn.commit()
     conn.close()
@@ -74,6 +75,7 @@ def insert_info(value):
         sql_script2 = "(%s)" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
         cur.execute(sql_script)
+        # print(sql_script)
         x = True
     except Exception as e:
         x = False
