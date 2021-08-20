@@ -158,13 +158,17 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
             url_text = price.get('href')
             list_url_text.append(url_text)
         for i in range(len(list_money)):
-            insert_info(
-                '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location + '","' +
-                list_village[
-                    i] + '","' + list_house_type[
-                    i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
-                list_money[
-                    i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(current_page) + '"')
+            try:
+                message = insert_info(
+                    '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location + '","' +
+                    list_village[
+                        i] + '","' + list_house_type[
+                        i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
+                    list_money[
+                        i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(current_page) + '"')
+            except:
+                pass
+                # print u"插入数据库失败" + message
         current_page += 1
     return get_row()
 
@@ -189,4 +193,4 @@ def gather(city="HZ"):
 
 if __name__ == '__main__':
     create_table(False)
-    gather("QD")
+    gather("quanzhou")

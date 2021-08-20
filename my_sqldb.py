@@ -9,6 +9,7 @@ import time
 
 time.localtime(time.time())
 current_date = time.strftime('%Y_%m_%d', time.localtime(time.time()))
+table_name = 'lianjia'
 
 
 def init_db():
@@ -37,10 +38,10 @@ def create_table(drop=True):
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = 'CREATE TABLE ' + current_date + ' (date varchar(30),city varchar(30),location varchar(30),sub_location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
+        sql_script = 'CREATE TABLE ' + table_name + ' (date varchar(30),city varchar(30),location varchar(30),sub_location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
         print u'first sql ' + sql_script
         cur.execute(sql_script)
-        sql_script = "ALTER TABLE `lianjia`.`" + current_date + "`MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`url`);"
+        sql_script = "ALTER TABLE `lianjia`.`" + table_name + "`MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`url`,`date`);"
         cur.execute(sql_script)
         print u"second sql" + sql_script
         x = True
@@ -50,7 +51,7 @@ def create_table(drop=True):
         print e
         print u"错误打印完毕！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
         if drop == True:
-            sql_script = "drop table " + current_date
+            sql_script = "drop table " + table_name
             cur.execute(sql_script)
             print u"third " + sql_script
             create_table()
@@ -69,21 +70,18 @@ def insert_info(value):
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script0 = "INSERT INTO %s" % current_date
+        sql_script0 = "INSERT INTO %s" % table_name
         sql_script1 = ' (date,city,location,sub_location,village,house_type,square,orientation,decorate,money,' \
                       'per_square,url,page) VALUES '
         sql_script2 = "(%s)" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
         cur.execute(sql_script)
-        # print(sql_script)
-        x = True
     except Exception as e:
-        x = False
-        # print e
+        pass
     cur.close()
     conn.commit()
     conn.close()
-    return x
+    return sql_script
 
 
 def get_row():
@@ -93,7 +91,7 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    sql_script = 'SELECT * FROM %s' % current_date
+    sql_script = 'SELECT * FROM %s' % table_name
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()
