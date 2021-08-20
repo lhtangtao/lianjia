@@ -99,9 +99,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
             village_new = ""
             if len(village.split("-")) > 2:
                 village = village.replace(" ", "")
-                print village
                 for i in range(len(village.split("-")) - 1):
-                    print village.split("-")[i]
                     village_new = village_new + village.split("-")[i]
                 village = village_new
 
