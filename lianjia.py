@@ -26,12 +26,13 @@ import re
 import sys
 import urllib2
 import time
+import thread
 
 import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
-from file_action import read_sub_location, write_sub_location, delete_file
+from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -91,7 +92,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
             for link in soup.find_all("a", attrs={'class': "selected"}):
                 list_temp.append(link.get_text().split("\n")[0])
             location_chinese = list_temp[1]
-            city_name = get_city_name(city)  # 第一页和最后一页 city_name的名字都是一样的
+            city_name = get_city_name(city)  # type: unicode # 第一页和最后一页 city_name的名字都是一样的
         list_village = []
         list_sub_location = []
         for positionInfo in soup.find_all('div', 'positionInfo'):
@@ -168,27 +169,25 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
                 pass
                 # print u"插入数据库失败" + message
         current_page += 1
-    delete_file(city, sub_location)
+    delete_file_line(city, sub_location)
     return get_row()
 
 
 def gather(city_to_collect="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
     write_sub_location(city_to_collect)  # 把该城市下的二级区域获取
+    print u"二级区域信息采集完成"
     localtion_list = read_sub_location(city_to_collect)
-    len_sub_location = len(localtion_list)
-    if len_sub_location > 25:
-        pass
-    else:
-        for sub_localtion in localtion_list:
-            now_time_start = datetime.datetime.now()  # 现在
-            print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-            row = get_house(city_to_collect, sub_localtion)
-            now_time_end = datetime.datetime.now()  # 现在
-            print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-            print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-            print u"强制等待10秒"
-            time.sleep(20 * 1)
+    for sub_localtion in localtion_list:
+        now_time_start = datetime.datetime.now()  # 现在
+        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        row = get_house(city_to_collect, sub_localtion)
+        now_time_end = datetime.datetime.now()  # 现在
+        print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
+        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        print u"强制等待10秒"
+        time.sleep(10 * 1)
+    delete_file(city_to_collect)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差

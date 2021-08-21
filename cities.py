@@ -43,7 +43,7 @@ def get_city_name(city="HZ"):
         return u"金华"
     if city == "quzhou":
         return u"衢州"
-    if city  == "QD":
+    if city == "QD":
         return u"青岛"
 
 
@@ -57,6 +57,7 @@ def get_location(url="http://hz.lianjia.com/ershoufang/"):
     req = urllib2.Request(url)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
+
     for link in soup.find_all("div", attrs={'data-role': "ershoufang"}):
         location_souce = link.find_all("div")[0]
         for location in location_souce.find_all("a"):

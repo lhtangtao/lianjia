@@ -11,6 +11,7 @@
 """
 from cities import get_sub_location, get_location
 import sys
+import os
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -69,12 +70,9 @@ def clear(city="NB"):
         for out in last_out_file:
             with open(file_address, "a+") as f:  # 去重后文件写入文件里
                 f.write(out)
-            #     if z % 25 == 0:
-            #         f.write("\n")
-            # z = z + 1
 
 
-def delete_file(city="HZ", sub_location="ershoufang/jiulian/"):
+def delete_file_line(city="HZ", sub_location="ershoufang/jiulian/"):
     file_address = "./city_file/" + city
     with open(file_address, "r") as f:
         lines = f.readlines()
@@ -83,11 +81,16 @@ def delete_file(city="HZ", sub_location="ershoufang/jiulian/"):
             if sub_location in line:
                 continue
             f_w.write(line)
-    print u"delete "+sub_location+u"success"
+    print u"delete " + sub_location + u"success"
+
+
+def delete_file(city):
+    file_address = "./city_file/" + city
+    os.remove(file_address)
 
 
 if __name__ == '__main__':
-    delete_file("HZ","sandun")
+    delete_file("huzhou")
     # clear("NB")
 
     # print read_sub_location()[1]
