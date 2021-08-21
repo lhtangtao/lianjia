@@ -31,7 +31,7 @@ import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
-from file_action import read_sub_location, write_sub_location
+from file_action import read_sub_location, write_sub_location, delete_file
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -168,21 +168,27 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
                 pass
                 # print u"插入数据库失败" + message
         current_page += 1
+    delete_file(city, sub_location)
     return get_row()
 
 
-def gather(city="HZ"):
+def gather(city_to_collect="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
-    localtion_list = read_sub_location(city)
-    for sub_localtion in localtion_list:
-        now_time_start = datetime.datetime.now()  # 现在
-        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        row = get_house(city, sub_localtion)
-        now_time_end = datetime.datetime.now()  # 现在
-        print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        print u"强制等待10秒"
-        time.sleep(20 * 1)
+    write_sub_location(city_to_collect)  # 把该城市下的二级区域获取
+    localtion_list = read_sub_location(city_to_collect)
+    len_sub_location = len(localtion_list)
+    if len_sub_location > 25:
+        pass
+    else:
+        for sub_localtion in localtion_list:
+            now_time_start = datetime.datetime.now()  # 现在
+            print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            row = get_house(city_to_collect, sub_localtion)
+            now_time_end = datetime.datetime.now()  # 现在
+            print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
+            print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            print u"强制等待10秒"
+            time.sleep(20 * 1)
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
@@ -190,7 +196,5 @@ def gather(city="HZ"):
 
 if __name__ == '__main__':
     create_table(False)
-    city = "WZ"
-    write_sub_location(city)  # 把该城市下的二级区域获取
+    city = "JX"
     gather(city)
-

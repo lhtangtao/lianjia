@@ -18,25 +18,25 @@ sys.setdefaultencoding('utf8')
 
 def write_sub_location(city="hz"):
     """
-    把该城市的所有子区域读取出来
+    把该城市的所有子区域读取出来存放到一个文件
     :param city:
     :return:
     """
     file_address = "./city_file/" + city
     open(file_address, "w+")
     list_location = get_location("http://" + city + ".lianjia.com/ershoufang/")
+    if len(list_location) > 150:
+        print u"*************sub_location已经超过150个了 请注意修改代码**************"
     for i in range(len(list_location)):
-
         url_to_add = list_location[i].split("=")[1]
         print url_to_add
         url = "https://" + city + ".lianjia.com" + url_to_add
         print url
         try:
             for j in range(len(get_sub_location(url))):
-                x = get_sub_location(url)[j]
-                print x
+                sub_location_url = get_sub_location(url)[j]
                 test = open(file_address, "a+")
-                test.write(x + '\n')
+                test.write(sub_location_url + '\n')
         except:
             print list_location[i] + u"这个区没有数据"
     clear(city)
@@ -56,6 +56,7 @@ def clear(city="NB"):
     :param city:
     :return:
     """
+    # z = 1
     file_list = []
     file_address = "./city_file/" + city
     with open(file_address, "r") as f:
@@ -68,10 +69,25 @@ def clear(city="NB"):
         for out in last_out_file:
             with open(file_address, "a+") as f:  # 去重后文件写入文件里
                 f.write(out)
+            #     if z % 25 == 0:
+            #         f.write("\n")
+            # z = z + 1
+
+
+def delete_file(city="HZ", sub_location="ershoufang/jiulian/"):
+    file_address = "./city_file/" + city
+    with open(file_address, "r") as f:
+        lines = f.readlines()
+    with open(file_address, "w") as f_w:
+        for line in lines:
+            if sub_location in line:
+                continue
+            f_w.write(line)
+    print u"delete "+sub_location+u"success"
 
 
 if __name__ == '__main__':
-    write_sub_location("HZ")
+    delete_file("HZ","sandun")
     # clear("NB")
 
     # print read_sub_location()[1]
