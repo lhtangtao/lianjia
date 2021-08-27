@@ -175,7 +175,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
 
 def gather(city_to_collect="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
-    write_sub_location(city_to_collect)  # 把该城市下的二级区域获取
+    # write_sub_location(city_to_collect)  # 把该城市下的二级区域获取
     print u"二级区域信息采集完成"
     localtion_list = read_sub_location(city_to_collect)
     for sub_localtion in localtion_list:
@@ -195,5 +195,5 @@ def gather(city_to_collect="HZ"):
 
 if __name__ == '__main__':
     create_table(False)
-    city = "JX"
+    city = "NB"
     gather(city)
