@@ -91,15 +91,16 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    sql_script = 'SELECT * FROM %s' % table_name
+    sql_script = 'SELECT  * FROM %s' % table_name
+    print sql_script
     row = cur.execute(sql_script)
     cur.close()
     conn.commit()
     conn.close()
-    return row
+    # return row
 
 
 if __name__ == '__main__':
     # print create_table()
     # print get_row()
-    insert_info(3)
+    print get_row()

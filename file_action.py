@@ -15,9 +15,20 @@ import os
 
 reload(sys)
 sys.setdefaultencoding('utf8')
+denominator = 20
 
 
-def write_sub_location(city="hz"):
+def get_all_cities():
+    all_cities = []
+    if os.path.exists("./city_file/all"):
+        for line in open("./city_file/all"):
+            all_cities.append(line.replace("\n", ""))
+    else:
+        pass
+    return all_cities
+
+
+def write_sub_location(city="HZ"):
     """
     把该城市的所有子区域读取出来存放到一个文件
     :param city:
@@ -30,7 +41,6 @@ def write_sub_location(city="hz"):
         print u"*************sub_location已经超过150个了 请注意修改代码**************"
     for i in range(len(list_location)):
         url_to_add = list_location[i].split("=")[1]
-        print url_to_add
         url = "https://" + city + ".lianjia.com" + url_to_add
         print url
         try:
@@ -41,13 +51,16 @@ def write_sub_location(city="hz"):
         except:
             print list_location[i] + u"这个区没有数据"
     clear(city)
+    return spilt_file(city)
 
 
-def read_sub_location(city="HZ"):
+def read_sub_location(file_address="./city_file/" + "HZ"):
     list_dst = []
-    file_address = "./city_file/" + city
-    for line in open(file_address):
-        list_dst.append(line.split("=")[1].replace("\n", ""))
+    if os.path.exists(file_address):
+        for line in open(file_address):
+            list_dst.append(line.split("=")[1].replace("\n", ""))
+    else:
+        pass
     return list_dst
 
 
@@ -72,25 +85,39 @@ def clear(city="NB"):
                 f.write(out)
 
 
-def delete_file_line(city="HZ", sub_location="ershoufang/jiulian/"):
-    file_address = "./city_file/" + city
-    with open(file_address, "r") as f:
-        lines = f.readlines()
-    with open(file_address, "w") as f_w:
-        for line in lines:
-            if sub_location in line:
-                continue
-            f_w.write(line)
+def delete_file_line(city="HZ", sub_location="ershoufang/daxuechengbei/"):
+    for i in range(10):
+        file_address = "./city_file/" + city + str(i)
+        if os.path.exists(file_address):
+            with open(file_address, "r") as f:
+                lines = f.readlines()
+            with open(file_address, "w") as f_w:
+                for line in lines:
+                    if sub_location in line:
+                        continue
+                    f_w.write(line)
     print u"delete " + sub_location + u"success"
 
 
-def delete_file(city):
-    file_address = "./city_file/" + city
+def delete_file(file_address):
     os.remove(file_address)
 
 
-if __name__ == '__main__':
-    delete_file("huzhou")
-    # clear("NB")
+def spilt_file(city="HZ"):
+    file_address = "./city_file/" + city
+    count = 0
+    f = open(file_address, "r")
+    for line in f.readlines():
+        count = count + 1
+        file_address = "./city_file/" + city + str(count / denominator)
+        test = open(file_address, "a+")
+        test.write(line)
+    if os.path.exists("./city_file/" + city + "1"):
+        os.remove("./city_file/" + city)
+    else:
+        os.remove("./city_file/" + city + "0")
+    return count
 
-    # print read_sub_location()[1]
+
+if __name__ == '__main__':
+    print get_all_cities()

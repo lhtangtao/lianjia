@@ -22,17 +22,18 @@ I love animals. They taste delicious.
 ┃┫┫  ┃┫┫
 ┗┻┛  ┗┻┛
 """
+import os.path
 import re
 import sys
 import urllib2
 import time
 import thread
-
+import threading
 import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
-from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file
+from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file, get_all_cities
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -170,30 +171,63 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
                 # print u"插入数据库失败" + message
         current_page += 1
     delete_file_line(city, sub_location)
-    return get_row()
+    # return get_row()
+
+
+def collect_by_file(city_to_collect="NB", file_add="./city_file/" + "NB1"):
+    """
+    根据传入的文件地址进行获取数据
+    :param city_to_collect:
+    :param file_add:
+    :return:
+    """
+    localtion_list = read_sub_location(file_add)
+    for sub_localtion in localtion_list:
+        now_time_start = datetime.datetime.now()  # 现在
+        print sub_localtion + u"开始时间" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        get_house(city_to_collect, sub_localtion)
+        now_time_end = datetime.datetime.now()  # 现在
+        print sub_localtion + u'已采集完毕 ' + str((now_time_end - now_time_start))
+        print sub_localtion + u"结束时间" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        print u"强制等待10秒"
+        time.sleep(10 * 1)
+    delete_file(file_add)
 
 
 def gather(city_to_collect="HZ"):
     now_time_start_all = datetime.datetime.now()  # 现在
-    # write_sub_location(city_to_collect)  # 把该城市下的二级区域获取
-    print u"二级区域信息采集完成"
-    localtion_list = read_sub_location(city_to_collect)
-    for sub_localtion in localtion_list:
-        now_time_start = datetime.datetime.now()  # 现在
-        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        row = get_house(city_to_collect, sub_localtion)
-        now_time_end = datetime.datetime.now()  # 现在
-        print sub_localtion + u'已采集完毕，总计已采集数据量为' + str(row) + '    ' + str((now_time_end - now_time_start))
-        print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        print u"强制等待10秒"
-        time.sleep(10 * 1)
-    delete_file(city_to_collect)
+    exist_file_address = []
+    if os.path.exists("./city_file/" + city_to_collect):
+        collect_by_file(city_to_collect, "./city_file/" + city_to_collect)
+    else:
+        for i in range(10):
+            file_address = "./city_file/" + city_to_collect + str(i)
+            if os.path.exists(file_address):
+                exist_file_address.append(file_address)
+        for x in range(len(exist_file_address)):
+            threading.Thread(target=collect_by_file, args=(city_to_collect, exist_file_address[x])).start()
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
 
 
+def get_all_sub_location():
+    location_list = get_all_cities()
+    print location_list
+    for i in location_list:
+        threading.Thread(target=write_sub_location, args=(i,)).start()
+
+
 if __name__ == '__main__':
-    create_table(False)
-    city = "NB"
-    gather(city)
+    # get_all_sub_location()  # 把该城市下的二级区域获取
+    # gather("huzhou")
+    # gather("HZ")
+    # gather("JX")
+    gather("NB")
+    # gather("SX")
+    # gather("JH")
+    # gather("WZ")
+    # gather("taizhou")
+    # gather("quzhou")
+    # gather("quanzhou")
+    # gather("QD")
