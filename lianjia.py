@@ -148,7 +148,8 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
 
         for price in soup.find_all('div', 'unitPrice'):  # 单价的信息
             per_square = price.get_text()
-            per_square = re.findall(r"\d+\.?\d*", per_square)[0]
+            print per_square
+            per_square = per_square.replace(",", "").replace("元/平", '')
             list_per_square.append(per_square)
         for j in range(len(list_temp)):
             list_per_square.insert(list_temp[j], " ")
@@ -174,7 +175,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
     # return get_row()
 
 
-def collect_by_file(city_to_collect="NB", file_add="./city_file/" + "NB1"):
+def collect_by_file(city_to_collect="SX", file_add="./city_file/" + "SX0"):
     """
     根据传入的文件地址进行获取数据
     :param city_to_collect:
@@ -212,10 +213,18 @@ def gather(city_to_collect="HZ"):
 
 
 def get_all_sub_location():
+    """
+    区域信息更新了才要调用这个 这个函数一般一个月或者半年执行一次就够了
+
+    :return:
+    """
     location_list = get_all_cities()
     print location_list
     for i in location_list:
-        threading.Thread(target=write_sub_location, args=(i,)).start()
+        # threading.Thread(target=write_sub_location, args=(i,)).start()
+        write_sub_location(i)
+
+
 
 
 if __name__ == '__main__':
@@ -223,7 +232,7 @@ if __name__ == '__main__':
     # gather("huzhou")
     # gather("HZ")
     # gather("JX")
-    gather("NB")
+    # gather("NB")
     # gather("SX")
     # gather("JH")
     # gather("WZ")
@@ -231,3 +240,6 @@ if __name__ == '__main__':
     # gather("quzhou")
     # gather("quanzhou")
     # gather("QD")
+    # gather("WH")
+    # gather("SX")
+    collect_by_file()

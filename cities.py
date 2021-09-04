@@ -54,9 +54,20 @@ def get_location(url="http://hz.lianjia.com/ershoufang/"):
     :return:杭州大江东在售二手房 =/ershoufang/dajiangdong1/
     """
     list_location_divisions = []
-    req = urllib2.Request(url)
-    page = urllib2.urlopen(req)
-    soup = BeautifulSoup(page, "html.parser")
+    while True:
+        req = urllib2.Request(url)
+        page = urllib2.urlopen(req)
+        soup = BeautifulSoup(page, "html.parser")
+        try:
+            error = soup.title.text
+            if error == u"验证异常流量-链家网":
+                print u'ip被封 重启吧'
+            elif error == u"人机认证":
+                print u'ip被封 重启吧'
+            else:
+                break
+        except:
+            pass
 
     for link in soup.find_all("div", attrs={'data-role': "ershoufang"}):
         location_souce = link.find_all("div")[0]
@@ -80,4 +91,4 @@ def get_sub_location(url="https://nb.lianjia.com/ershoufang/haishuqu1/"):
 
 
 if __name__ == '__main__':
-    get_city_divisions()
+    get_location()

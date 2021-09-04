@@ -9,9 +9,12 @@
 #my_website=http://www.lhtangtao.com
 #Description=存放文件操作的相关函数
 """
+import time
+
 from cities import get_sub_location, get_location
 import sys
 import os
+import shutil
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -42,12 +45,13 @@ def write_sub_location(city="HZ"):
     for i in range(len(list_location)):
         url_to_add = list_location[i].split("=")[1]
         url = "https://" + city + ".lianjia.com" + url_to_add
-        print url
+        print url + u"开始采集写入到文件夹中"
         try:
             for j in range(len(get_sub_location(url))):
                 sub_location_url = get_sub_location(url)[j]
                 test = open(file_address, "a+")
                 test.write(sub_location_url + '\n')
+            print url + u"的信息已写入到文件夹中"
         except:
             print list_location[i] + u"这个区没有数据"
     clear(city)
@@ -70,7 +74,7 @@ def clear(city="NB"):
     :param city:
     :return:
     """
-    # z = 1
+    print u"开始文件夹去重工作  文件名为" + city
     file_list = []
     file_address = "./city_file/" + city
     with open(file_address, "r") as f:
@@ -103,10 +107,20 @@ def delete_file(file_address):
     os.remove(file_address)
 
 
-def spilt_file(city="HZ"):
-    file_address = "./city_file/" + city
+def spilt_file(city="HZ", copy=False):
+    print u"开始切割文件 名字为" + city
+
+    if copy:
+        file_address = "./city_file/" + city
+        shutil.copy(file_address, "./city_file_backup")
+    else:
+        file_address = "./city_file_backup/" + city
+        shutil.copy(file_address, "./city_file")
     count = 0
     f = open(file_address, "r")
+    for i in range(10):
+        if os.path.exists("./city_file/" + city + str(i)):
+            open(file_address, "w+")
     for line in f.readlines():
         count = count + 1
         file_address = "./city_file/" + city + str(count / denominator)
@@ -120,4 +134,5 @@ def spilt_file(city="HZ"):
 
 
 if __name__ == '__main__':
-    print get_all_cities()
+    # write_sub_location("WH")
+    spilt_file("SX")
