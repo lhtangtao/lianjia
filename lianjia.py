@@ -33,7 +33,7 @@ import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
-from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file, get_all_cities
+from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file, get_all_cities, spilt_file
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -148,7 +148,6 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
 
         for price in soup.find_all('div', 'unitPrice'):  # 单价的信息
             per_square = price.get_text()
-            print per_square
             per_square = per_square.replace(",", "").replace("元/平", '')
             list_per_square.append(per_square)
         for j in range(len(list_temp)):
@@ -225,21 +224,8 @@ def get_all_sub_location():
         write_sub_location(i)
 
 
-
-
 if __name__ == '__main__':
     # get_all_sub_location()  # 把该城市下的二级区域获取
-    # gather("huzhou")
-    # gather("HZ")
-    # gather("JX")
-    # gather("NB")
-    # gather("SX")
-    # gather("JH")
-    # gather("WZ")
-    # gather("taizhou")
-    # gather("quzhou")
-    # gather("quanzhou")
-    # gather("QD")
-    # gather("WH")
-    # gather("SX")
-    collect_by_file()
+    city = "huzhou"
+    spilt_file(city)
+    gather(city)
