@@ -18,7 +18,22 @@ import shutil
 
 reload(sys)
 sys.setdefaultencoding('utf8')
-denominator = 20
+
+
+def get_all_cities_to_collect():
+    all_cities = []
+    if os.path.exists("./city_file/all"):
+        for line in open("./city_file/all"):
+            count = 0
+            for i in range(10):
+                if os.path.exists("./city_file/" + line.replace("\n", "") + str(i)) or os.path.exists(
+                        "./city_file/" + line.replace("\n", "")):
+                    count = count + 1
+            if count != 0:
+                all_cities.append(line.replace("\n", ""))
+    else:
+        pass
+    return sorted(all_cities, key=str.lower)
 
 
 def get_all_cities():
@@ -31,13 +46,13 @@ def get_all_cities():
     return all_cities
 
 
-def write_sub_location(city="HZ"):
+def write_sub_location(city="JH"):
     """
     把该城市的所有子区域读取出来存放到一个文件
     :param city:
     :return:
     """
-    file_address = "./city_file/" + city
+    file_address = "./city_file_backup/" + city
     open(file_address, "w+")
     list_location = get_location("http://" + city + ".lianjia.com/ershoufang/")
     if len(list_location) > 150:
@@ -49,13 +64,14 @@ def write_sub_location(city="HZ"):
         try:
             for j in range(len(get_sub_location(url))):
                 sub_location_url = get_sub_location(url)[j]
+                print url_to_add + u"的sub_location_url" + "is" + sub_location_url
                 test = open(file_address, "a+")
                 test.write(sub_location_url + '\n')
             print url + u"的信息已写入到文件夹中"
         except:
             print list_location[i] + u"这个区没有数据"
     clear(city)
-    return spilt_file(city)
+    # return spilt_file(city)
 
 
 def read_sub_location(file_address="./city_file/" + "HZ"):
@@ -76,7 +92,7 @@ def clear(city="NB"):
     """
     print u"开始文件夹去重工作  文件名为" + city
     file_list = []
-    file_address = "./city_file/" + city
+    file_address = "./city_file_backup/" + city
     with open(file_address, "r") as f:
         file_2 = f.readlines()
         for file in file_2:
@@ -108,31 +124,37 @@ def delete_file(file_address):
 
 
 def spilt_file(city="HZ", copy=False):
-    print u"开始切割文件 名字为" + city
-
+    print u"开始切割文件 名字为"
     if copy:
         file_address = "./city_file/" + city
         shutil.copy(file_address, "./city_file_backup")
     else:
         file_address = "./city_file_backup/" + city
-        shutil.copy(file_address, "./city_file")
+    denominator = len(open(file_address).readlines()) / 5
     count = 0
     f = open(file_address, "r")
     for i in range(10):
         if os.path.exists("./city_file/" + city + str(i)):
-            open(file_address, "w+")
+            open("./city_file/" + city + str(i), "w+")
     for line in f.readlines():
         count = count + 1
         file_address = "./city_file/" + city + str(count / denominator)
         test = open(file_address, "a+")
         test.write(line)
-    if os.path.exists("./city_file/" + city + "1"):
-        os.remove("./city_file/" + city)
-    else:
-        os.remove("./city_file/" + city + "0")
+    print u"文件切割完毕"
     return count
 
 
+def spilt_file_all():
+    for city in get_all_cities():
+        spilt_file(city)
+
+
+def write_sub_location_all():
+    for city in get_all_cities():
+        write_sub_location(city)
+
+
 if __name__ == '__main__':
-    # write_sub_location("WH")
-    spilt_file("SX")
+    # print get_all_cities()
+    print get_all_cities_to_collect()

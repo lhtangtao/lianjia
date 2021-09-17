@@ -101,6 +101,4 @@ def get_row():
 
 
 if __name__ == '__main__':
-    # print create_table()
-    # print get_row()
-    print get_row()
+    print create_table(False)

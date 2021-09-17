@@ -33,7 +33,8 @@ import datetime
 from bs4 import BeautifulSoup
 from my_sqldb import get_row, create_table, insert_info
 from cities import get_city_name, get_sub_location
-from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file, get_all_cities, spilt_file
+from file_action import read_sub_location, write_sub_location, delete_file_line, delete_file, get_all_cities, \
+    spilt_file, get_all_cities_to_collect
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -45,8 +46,10 @@ def continue_action():
     while True:
         source = raw_input(u"请输入任意键后按回车继续")
         if source != "111111":
+            result = True
             break
     print u"已解除封印，可继续执行"
+    return result
 
 
 def get_house(city="quanzhou", sub_location="baolongguangchang"):
@@ -61,7 +64,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
         try:
             error = soup.title.text
             if error == u"验证异常流量-链家网":
-                print u'ip被封 请尝试更换代理'
+                print u'ip被封 请尝试更换代理或者等待60秒后重试'
                 continue_action()
             elif error == u"人机认证":
                 print u'ip被封 请尝试更换代理'
@@ -204,8 +207,11 @@ def gather(city_to_collect="HZ"):
             file_address = "./city_file/" + city_to_collect + str(i)
             if os.path.exists(file_address):
                 exist_file_address.append(file_address)
-        for x in range(len(exist_file_address)):
-            threading.Thread(target=collect_by_file, args=(city_to_collect, exist_file_address[x])).start()
+        if len(exist_file_address) == 0:
+            print u'该城市的数据已经采集完毕'
+        else:
+            for x in range(len(exist_file_address)):
+                threading.Thread(target=collect_by_file, args=(city_to_collect, exist_file_address[x])).start()
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start_all)  # 计算时间差
@@ -225,7 +231,5 @@ def get_all_sub_location():
 
 
 if __name__ == '__main__':
-    # get_all_sub_location()  # 把该城市下的二级区域获取
-    city = "huzhou"
-    spilt_file(city)
-    gather(city)
+    # get_all_sub_location()
+    gather(get_all_cities_to_collect()[0])
