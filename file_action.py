@@ -21,6 +21,10 @@ sys.setdefaultencoding('utf8')
 
 
 def get_all_cities_to_collect():
+    """
+    这个是获取要抓的城市的链接用的  每个月第一次跑 这个地方的数据肯定是空的
+    :return:
+    """
     all_cities = []
     if os.path.exists("./city_file/all"):
         for line in open("./city_file/all"):
@@ -32,11 +36,16 @@ def get_all_cities_to_collect():
             if count != 0:
                 all_cities.append(line.replace("\n", ""))
     else:
-        pass
+        print u"all"
     return sorted(all_cities, key=str.lower)
 
 
 def get_all_cities():
+    """
+    返回的列表如下所示
+    ['HZ', 'JX', 'huzhou', 'NB', 'SX', 'JH', 'WZ', 'taizhou', 'quzhou', 'quanzhou', 'QD', 'WH']
+    :return:
+    """
     all_cities = []
     if os.path.exists("./city_file/all"):
         for line in open("./city_file/all"):
@@ -52,6 +61,8 @@ def write_sub_location(city="JH"):
     :param city:
     :return:
     """
+    if not os.path.exists("./city_file_backup/"):
+        os.mkdir("./city_file_backup/")
     file_address = "./city_file_backup/" + city
     open(file_address, "w+")
     list_location = get_location("http://" + city + ".lianjia.com/ershoufang/")
@@ -157,4 +168,4 @@ def write_sub_location_all():
 
 if __name__ == '__main__':
     # print get_all_cities()
-    print get_all_cities_to_collect()
+    print write_sub_location_all()

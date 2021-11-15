@@ -220,7 +220,6 @@ def gather(city_to_collect="HZ"):
 def get_all_sub_location():
     """
     区域信息更新了才要调用这个 这个函数一般一个月或者半年执行一次就够了
-
     :return:
     """
     location_list = get_all_cities()
@@ -231,5 +230,5 @@ def get_all_sub_location():
 
 
 if __name__ == '__main__':
-    # get_all_sub_location()
-    gather(get_all_cities_to_collect()[0])
+    get_all_sub_location()
+    # gather(get_all_cities_to_collect()[0])
