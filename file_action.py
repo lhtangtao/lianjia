@@ -85,7 +85,7 @@ def write_sub_location(city="JH"):
     # return spilt_file(city)
 
 
-def read_sub_location(file_address="./city_file/" + "HZ"):
+def read_sub_location(file_address="./city_file/" + "HZ0"):
     list_dst = []
     if os.path.exists(file_address):
         for line in open(file_address):
@@ -157,6 +157,11 @@ def spilt_file(city="HZ", copy=False):
 
 
 def spilt_file_all():
+    """
+    step 2
+    获取完城市数据后全部进行切割
+    :return:
+    """
     for city in get_all_cities():
         spilt_file(city)
 
@@ -167,5 +172,4 @@ def write_sub_location_all():
 
 
 if __name__ == '__main__':
-    # print get_all_cities()
-    print write_sub_location_all()
+    print spilt_file_all()

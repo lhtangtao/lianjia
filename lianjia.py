@@ -38,7 +38,7 @@ from file_action import read_sub_location, write_sub_location, delete_file_line,
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-current_data = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+current_data = time.strftime('%Y-%m', time.localtime(time.time()))
 time.clock()
 
 
@@ -52,7 +52,7 @@ def continue_action():
     return result
 
 
-def get_house(city="quanzhou", sub_location="baolongguangchang"):
+def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
     global city_name, location_chinese, j
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
@@ -96,6 +96,7 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
             for link in soup.find_all("a", attrs={'class': "selected"}):
                 list_temp.append(link.get_text().split("\n")[0])
             location_chinese = list_temp[1]
+            print     location_chinese
             city_name = get_city_name(city)  # type: unicode # 第一页和最后一页 city_name的名字都是一样的
         list_village = []
         list_sub_location = []
@@ -157,10 +158,28 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
             list_per_square.insert(list_temp[j], " ")
 
         list_url_text = []
-        for price in soup.find_all("a", attrs={"target": "_blank", 'class': "title"}):  # 获取链接
+        temp = 0
+        for price in soup.find_all("a",
+                                   attrs={'class': "noresultRecommend img LOGCLICKDATA"}):  # 获取链接
             url_text = price.get('href')
             list_url_text.append(url_text)
         for i in range(len(list_money)):
+            # message = insert_info(
+            #     '"' + str(current_data)
+            #     + '","' + city_name
+            #     # +'","' + location_chinese
+            #     # +'","' + sub_location
+            #     # +'","' +list_village[i]
+            #     # +'","' + list_house_type[i]
+            #     # +'","' + list_square[i]
+            #     # +'","'+ list_orientation[i]
+            #     # +'","' + list_decorate[i]
+            #     # +'","' +list_money[i]
+            #     # +'","' + list_per_square[i]
+            #     # + '","' + list_url_text[i * 2 + 1]
+            #     # +'","' + str(current_page)
+            #     # +'"'
+            # )
             try:
                 message = insert_info(
                     '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location + '","' +
@@ -169,9 +188,10 @@ def get_house(city="quanzhou", sub_location="baolongguangchang"):
                         i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
                     list_money[
                         i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(current_page) + '"')
+
             except:
                 pass
-                # print u"插入数据库失败" + message
+            # print u"插入数据库失败" + message
         current_page += 1
     delete_file_line(city, sub_location)
     # return get_row()
@@ -219,16 +239,21 @@ def gather(city_to_collect="HZ"):
 
 def get_all_sub_location():
     """
+    step1
     区域信息更新了才要调用这个 这个函数一般一个月或者半年执行一次就够了
     :return:
     """
+    start = time.time()
     location_list = get_all_cities()
     print location_list
     for i in location_list:
         # threading.Thread(target=write_sub_location, args=(i,)).start()
         write_sub_location(i)
+    end = time.time()
+    print u'Running time: %s Seconds' % (end - start)
 
 
 if __name__ == '__main__':
-    get_all_sub_location()
-    # gather(get_all_cities_to_collect()[0])
+    # get_all_sub_location()
+    gather(get_all_cities_to_collect()[0])
+    # get_house()

@@ -81,6 +81,7 @@ def insert_info(value):
     cur.close()
     conn.commit()
     conn.close()
+    # print sql_script
     return sql_script
 
 
