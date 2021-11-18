@@ -53,7 +53,7 @@ def continue_action():
 
 
 def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
-    global city_name, location_chinese, j
+    global city_name, j, location_chinese, sub_location_chinese
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
     url_source = "http://" + city + ".lianjia.com" + sub_location
@@ -92,14 +92,20 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             print url
             print soup
         if current_page == 1:  # 第一页和最后一页 location_chinese的名字都是一样的
-            list_temp = []
-            for link in soup.find_all("a", attrs={'class': "selected"}):
-                list_temp.append(link.get_text().split("\n")[0])
-            location_chinese = list_temp[1]
-            print     location_chinese
-            city_name = get_city_name(city)  # type: unicode # 第一页和最后一页 city_name的名字都是一样的
+            file_address = "./relation"
+            test = open(file_address, "r+")
+            for line in test:
+                if sub_location in line:
+                    city_name = line.split("-")[0]
+                    location_chinese = line.split("-")[1]
+                    sub_location_chinese = line.split("-")[2]
+        #     list_temp = []
+        #     for link in soup.find_all("a", attrs={'class': "selected"}):
+        #         list_temp.append(link.get_text().split("\n")[0])
+        #     location_chinese = list_temp[1]
+        #     city_name = get_city_name(city)  # type: unicode # 第一页和最后一页 city_name的名字都是一样的
+        # list_sub_location = []
         list_village = []
-        list_sub_location = []
         for positionInfo in soup.find_all('div', 'positionInfo'):
             village = positionInfo.get_text()
             village_new = ""
@@ -110,10 +116,10 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
                 village = village_new
 
             else:
-                sub_location = village.split('-')[1].strip()
+                # sub_location = village.split('-')[1].strip()
                 village = village.split('-')[0].strip()
             list_village.append(village)
-            list_sub_location.append(sub_location)
+            # list_sub_location.append(sub_location)
 
         list_house_type = []
         list_square = []
@@ -181,8 +187,9 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             #     # +'"'
             # )
             try:
+                # print city_name+location_chinese+sub_location_chinese
                 message = insert_info(
-                    '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location + '","' +
+                    '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location_chinese + '","' +
                     list_village[
                         i] + '","' + list_house_type[
                         i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
@@ -255,5 +262,5 @@ def get_all_sub_location():
 
 if __name__ == '__main__':
     # get_all_sub_location()
-    gather(get_all_cities_to_collect()[0])
+    gather(get_all_cities_to_collect()[1])
     # get_house()

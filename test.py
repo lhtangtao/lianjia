@@ -28,5 +28,13 @@ from urllib import urlopen
 from bs4 import BeautifulSoup
 import urllib2
 
+from cities import get_location, get_sub_location
+from lianjia import continue_action
+
+
+def get_location_sub_relation(city = "HZ"):
+    print get_sub_location("https://hz.lianjia.com/ershoufang/aoti/")[0]
+
+
 if __name__ == '__main__':
-    pass
+    get_location_sub_relation()

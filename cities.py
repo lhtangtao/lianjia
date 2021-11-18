@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 #name=lianjia 
 #author=lhtangtao
@@ -9,8 +10,14 @@
 #my_website=http://www.lhtangtao.com
 #Description=存放城市相关转换信息
 """
+
+import sys
 import urllib2
+
 from bs4 import BeautifulSoup
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 
 def get_city_divisions(city="HZ"):
@@ -45,6 +52,8 @@ def get_city_name(city="HZ"):
         return u"衢州"
     if city == "QD":
         return u"青岛"
+    if city == "WH":
+        return u"武汉"
 
 
 def get_location(url="http://hz.lianjia.com/ershoufang/"):
@@ -90,5 +99,40 @@ def get_sub_location(url="https://nb.lianjia.com/ershoufang/haishuqu1/"):
     return list_sub_location
 
 
+def get_true_location_by_sub():
+    """
+    通过传入子区域，获取他所在的真正行政区域
+    :param url:
+    :return:
+    """
+    from file_action import get_all_cities
+    cities_list = get_all_cities()
+    for city_to in cities_list:
+        city_name = get_city_name(city_to)
+        print u"开始采集这个城市的数据了" + city_name
+        file_address = "./city_file_backup/" + city_to
+        test = open(file_address, "r+")
+        for line in test:
+            sub_location_url_to_add = line.split("=")[1]
+            url = "https://" + city_to + ".lianjia.com" + sub_location_url_to_add
+            req = urllib2.Request(url)
+            page = urllib2.urlopen(req)
+            soup = BeautifulSoup(page, "html.parser")
+            list_temp = []
+            for link in soup.find_all("a", attrs={'class': "selected"}):
+                list_temp.append(link.get_text().split("\n")[0])
+            file_address = "./relation"
+            test = open(file_address, "a+")
+            test.write(city_name + "-" + list_temp[1] + "-" + list_temp[2] + "-" + sub_location_url_to_add)
+
+
 if __name__ == '__main__':
-    get_location()
+    city = "HZ"
+    sub_location = "/ershoufang/jinshahu/"
+    file_address = "./relation"
+    test = open(file_address, "r+")
+    for line in test:
+        if sub_location in line:
+            print line
+
+
