@@ -72,7 +72,7 @@ def insert_info(value):
     try:
         sql_script0 = "INSERT INTO %s" % table_name
         sql_script1 = ' (date,city,location,sub_location,village,house_type,square,orientation,decorate,money,' \
-                      'per_square,url,page) VALUES '
+                      'per_square,url,page,source_url) VALUES '
         sql_script2 = "(%s)" % value
         sql_script = sql_script0 + sql_script1 + sql_script2
         cur.execute(sql_script)

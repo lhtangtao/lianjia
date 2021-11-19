@@ -53,7 +53,6 @@ def continue_action():
 
 
 def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
-    global city_name, j, location_chinese, sub_location_chinese
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
     url_source = "http://" + city + ".lianjia.com" + sub_location
@@ -61,18 +60,18 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
         req = urllib2.Request(url_source)
         page = urllib2.urlopen(req)
         soup = BeautifulSoup(page, "html.parser")
-        try:
-            error = soup.title.text
-            if error == u"验证异常流量-链家网":
-                print u'ip被封 请尝试更换代理或者等待60秒后重试'
-                continue_action()
-            elif error == u"人机认证":
-                print u'ip被封 请尝试更换代理'
-                continue_action()
-            else:
-                break
-        except:
-            pass
+        error = soup.title.text
+
+        if error == u"验证异常流量-链家网":
+            print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            time.sleep(600)
+            # continue_action()
+        elif error == u"人机认证":
+            print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            # continue_action()
+            time.sleep(600)
+        else:
+            break
 
     for link in soup.find_all('div', 'resultDes clear'):
         context = link.get_text()
@@ -84,13 +83,30 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             total_page = 100
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
         url = url_source + 'pg' + str(current_page) + '/'
-        page = urllib2.urlopen(url)
-        print url
-        try:
-            soup = BeautifulSoup(page, "html.parser")
-        except:
+        # page = urllib2.urlopen(url)
+        # print url
+        # try:
+        #     soup = BeautifulSoup(page, "html.parser")
+        # except:
+        #     print url
+        #     print soup
+
+        while True:
+            page = urllib2.urlopen(url)
             print url
-            print soup
+            soup = BeautifulSoup(page, "html.parser")
+            error = soup.title.text
+            if error == u"验证异常流量-链家网":
+                print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                time.sleep(600)
+                # continue_action()
+            elif error == u"人机认证":
+                print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                # continue_action()
+                time.sleep(600)
+            else:
+                break
+
         if current_page == 1:  # 第一页和最后一页 location_chinese的名字都是一样的
             file_address = "./relation"
             test = open(file_address, "r+")
@@ -187,18 +203,17 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             #     # +'"'
             # )
             try:
-                # print city_name+location_chinese+sub_location_chinese
                 message = insert_info(
                     '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location_chinese + '","' +
                     list_village[
                         i] + '","' + list_house_type[
                         i] + '","' + list_square[i] + '","' + list_orientation[i] + '","' + list_decorate[i] + '","' +
                     list_money[
-                        i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(current_page) + '"')
+                        i] + '","' + list_per_square[i] + '","' + list_url_text[i] + '","' + str(
+                        current_page) + '","' + url + '"')
 
             except:
                 pass
-            # print u"插入数据库失败" + message
         current_page += 1
     delete_file_line(city, sub_location)
     # return get_row()
@@ -262,5 +277,7 @@ def get_all_sub_location():
 
 if __name__ == '__main__':
     # get_all_sub_location()
-    gather(get_all_cities_to_collect()[1])
+    for i in get_all_cities_to_collect():
+        print u"此时开始搜集"+i+u"的城市信息"
+        gather(get_all_cities_to_collect()[0])
     # get_house()

@@ -102,6 +102,7 @@ def get_sub_location(url="https://nb.lianjia.com/ershoufang/haishuqu1/"):
 def get_true_location_by_sub():
     """
     通过传入子区域，获取他所在的真正行政区域
+    建议半年执行一次 最近执行是2021年11月18日
     :param url:
     :return:
     """
