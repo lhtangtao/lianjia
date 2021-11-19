@@ -56,19 +56,16 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
     current_page = 1  # 当前在第几页
     total_page = 0  # 在这个区里一共有多少页房产信息
     url_source = "http://" + city + ".lianjia.com" + sub_location
+    count_in_sub_location = 0
     while True:
         req = urllib2.Request(url_source)
         page = urllib2.urlopen(req)
         soup = BeautifulSoup(page, "html.parser")
         error = soup.title.text
-
-        if error == u"验证异常流量-链家网":
-            print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            time.sleep(600)
-            # continue_action()
-        elif error == u"人机认证":
-            print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            # continue_action()
+        if error == u"验证异常流量-链家网" or error == u"人机认证":
+            print u"计数为" + str(count_in_sub_location) + u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
+                "%Y-%m-%d %H:%M:%S", time.localtime())
+            count_in_sub_location = count_in_sub_location + 1
             time.sleep(600)
         else:
             break
@@ -83,27 +80,18 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             total_page = 100
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
         url = url_source + 'pg' + str(current_page) + '/'
-        # page = urllib2.urlopen(url)
-        # print url
-        # try:
-        #     soup = BeautifulSoup(page, "html.parser")
-        # except:
-        #     print url
-        #     print soup
-
+        count_in_page = 0
         while True:
             page = urllib2.urlopen(url)
             print url
             soup = BeautifulSoup(page, "html.parser")
             error = soup.title.text
-            if error == u"验证异常流量-链家网":
-                print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            if error == u"验证异常流量-链家网" or error == u"人机认证":
+                print u"计数为" + str(count_in_page) + u' 在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
+                    "%Y-%m-%d %H:%M:%S", time.localtime())
+                count_in_page = count_in_page + 1
                 time.sleep(600)
                 # continue_action()
-            elif error == u"人机认证":
-                print u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                # continue_action()
-                time.sleep(600)
             else:
                 break
 
@@ -115,12 +103,8 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
                     city_name = line.split("-")[0]
                     location_chinese = line.split("-")[1]
                     sub_location_chinese = line.split("-")[2]
-        #     list_temp = []
-        #     for link in soup.find_all("a", attrs={'class': "selected"}):
-        #         list_temp.append(link.get_text().split("\n")[0])
-        #     location_chinese = list_temp[1]
-        #     city_name = get_city_name(city)  # type: unicode # 第一页和最后一页 city_name的名字都是一样的
-        # list_sub_location = []
+        else:
+            pass
         list_village = []
         for positionInfo in soup.find_all('div', 'positionInfo'):
             village = positionInfo.get_text()
@@ -186,22 +170,6 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             url_text = price.get('href')
             list_url_text.append(url_text)
         for i in range(len(list_money)):
-            # message = insert_info(
-            #     '"' + str(current_data)
-            #     + '","' + city_name
-            #     # +'","' + location_chinese
-            #     # +'","' + sub_location
-            #     # +'","' +list_village[i]
-            #     # +'","' + list_house_type[i]
-            #     # +'","' + list_square[i]
-            #     # +'","'+ list_orientation[i]
-            #     # +'","' + list_decorate[i]
-            #     # +'","' +list_money[i]
-            #     # +'","' + list_per_square[i]
-            #     # + '","' + list_url_text[i * 2 + 1]
-            #     # +'","' + str(current_page)
-            #     # +'"'
-            # )
             try:
                 message = insert_info(
                     '"' + current_data + '","' + city_name + '","' + location_chinese + '","' + sub_location_chinese + '","' +
@@ -216,7 +184,6 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
                 pass
         current_page += 1
     delete_file_line(city, sub_location)
-    # return get_row()
 
 
 def collect_by_file(city_to_collect="SX", file_add="./city_file/" + "SX0"):
@@ -278,6 +245,6 @@ def get_all_sub_location():
 if __name__ == '__main__':
     # get_all_sub_location()
     for i in get_all_cities_to_collect():
-        print u"此时开始搜集"+i+u"的城市信息"
+        print u"此时开始搜集" + i + u"的城市信息"
         gather(get_all_cities_to_collect()[0])
     # get_house()

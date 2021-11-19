@@ -64,6 +64,7 @@ def create_table(drop=True):
 def insert_info(value):
     """
     要插入的数据列名和数值
+    :rtype: object
     :param value:
     :return:
     """
