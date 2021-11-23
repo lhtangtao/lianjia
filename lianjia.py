@@ -87,7 +87,7 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
             soup = BeautifulSoup(page, "html.parser")
             error = soup.title.text
             if error == u"验证异常流量-链家网" or error == u"人机认证":
-                print u"计数为" + str(count_in_page) + u' 在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
+                print u"计数为" + str(count_in_page) + u' 在这个页面需要等待10分钟 ' + url + u" 现在时间是 " + time.strftime(
                     "%Y-%m-%d %H:%M:%S", time.localtime())
                 count_in_page = count_in_page + 1
                 time.sleep(600)
@@ -214,7 +214,7 @@ def gather(city_to_collect="HZ"):
     else:
         for i in range(10):
             file_address = "./city_file/" + city_to_collect + str(i)
-            if os.path.exists(file_address):
+            if os.path.exists(file_address) and os.path.getsize(file_address) != 0:
                 exist_file_address.append(file_address)
         if len(exist_file_address) == 0:
             print u'该城市的数据已经采集完毕'
