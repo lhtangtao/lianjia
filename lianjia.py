@@ -52,42 +52,43 @@ def continue_action():
     return result
 
 
-def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
+def get_house(city="HZ", sub_location="/ershoufang/jinshahu/", file_add="   "):
     current_page = 1  # 当前在第几页
-    total_page = 0  # 在这个区里一共有多少页房产信息
-    url_source = "http://" + city + ".lianjia.com" + sub_location
-    count_in_sub_location = 0
-    while True:
-        req = urllib2.Request(url_source)
-        page = urllib2.urlopen(req)
-        soup = BeautifulSoup(page, "html.parser")
-        error = soup.title.text
-        if error == u"验证异常流量-链家网" or error == u"人机认证":
-            print u"计数为" + str(count_in_sub_location) + u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
-                "%Y-%m-%d %H:%M:%S", time.localtime())
-            count_in_sub_location = count_in_sub_location + 1
-            time.sleep(600)
-        else:
-            break
+    total_page = 100  # 在这个区里一共有多少页房产信息
+    # url_source = "http://" + city + ".lianjia.com" + sub_location
+    # count_in_sub_location = 0
+    # while True:
+    #     req = urllib2.Request(url_source)
+    #     page = urllib2.urlopen(req)
+    #     soup = BeautifulSoup(page, "html.parser")
+    #     error = soup.title.text
+    #     if error == u"验证异常流量-链家网" or error == u"人机认证":
+    #         print file_add + u"  计数为" + str(
+    #             count_in_sub_location) + u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
+    #             "%Y-%m-%d %H:%M:%S", time.localtime())
+    #         count_in_sub_location = count_in_sub_location + 1
+    #         time.sleep(600)
+    #     else:
+    #         break
 
-    for link in soup.find_all('div', 'resultDes clear'):
-        context = link.get_text()
-        # print context #示例是   共找到 3435 套滨江二手房with(document)write('<a href="/ershoufang/"><span></span>清空条件</a>');保存搜索
-        total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
-        print sub_location + u'一共有' + total_house + u'套房子'
-        total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-        if total_page > 100:
-            total_page = 100
+    # for link in soup.find_all('div', 'resultDes clear'):
+    #     context = link.get_text()
+    #     # print context #示例是   共找到 3435 套滨江二手房with(document)write('<a href="/ershoufang/"><span></span>清空条件</a>');保存搜索
+    #     total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
+    #     print sub_location + u'一共有' + total_house + u'套房子'
+    #     total_page = int(total_house) / 30 + 1  # 求出一共有多少页
+    #     if total_page > 100:
+    #         total_page = 100
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
-        url = url_source + 'pg' + str(current_page) + '/'
+        url = "http://" + city + ".lianjia.com" + sub_location + 'pg' + str(current_page) + '/'
         count_in_page = 0
         while True:
             page = urllib2.urlopen(url)
-            print url
+            print file_add + "     " + url + u"开始采集"
             soup = BeautifulSoup(page, "html.parser")
             error = soup.title.text
             if error == u"验证异常流量-链家网" or error == u"人机认证":
-                print u"计数为" + str(count_in_page) + u' 在这个页面需要等待10分钟 ' + url + u" 现在时间是 " + time.strftime(
+                print file_add + u"  计数为" + str(count_in_page) + u' 在这个页面需要等待10分钟 ' + url + u" 现在时间是 " + time.strftime(
                     "%Y-%m-%d %H:%M:%S", time.localtime())
                 count_in_page = count_in_page + 1
                 time.sleep(600)
@@ -96,6 +97,15 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
                 break
 
         if current_page == 1:  # 第一页和最后一页 location_chinese的名字都是一样的
+            for link in soup.find_all('div', 'resultDes clear'):
+                context = link.get_text()
+                # print context #示例是   共找到 3435 套滨江二手房with(document)write('<a
+                # href="/ershoufang/"><span></span>清空条件</a>');保存搜索
+                total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
+                print sub_location + u'一共有' + total_house + u'套房子'
+                total_page = int(total_house) / 30 + 1  # 求出一共有多少页
+                if total_page > 100:
+                    total_page = 100
             file_address = "./relation"
             test = open(file_address, "r+")
             for line in test:
@@ -103,6 +113,7 @@ def get_house(city="HZ", sub_location="/ershoufang/jinshahu/"):
                     city_name = line.split("-")[0]
                     location_chinese = line.split("-")[1]
                     sub_location_chinese = line.split("-")[2]
+
         else:
             pass
         list_village = []
@@ -197,7 +208,7 @@ def collect_by_file(city_to_collect="SX", file_add="./city_file/" + "SX0"):
     for sub_localtion in localtion_list:
         now_time_start = datetime.datetime.now()  # 现在
         print sub_localtion + u"开始时间" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-        get_house(city_to_collect, sub_localtion)
+        get_house(city_to_collect, sub_localtion, file_add)
         now_time_end = datetime.datetime.now()  # 现在
         print sub_localtion + u'已采集完毕 ' + str((now_time_end - now_time_start))
         print sub_localtion + u"结束时间" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -214,8 +225,11 @@ def gather(city_to_collect="HZ"):
     else:
         for i in range(10):
             file_address = "./city_file/" + city_to_collect + str(i)
-            if os.path.exists(file_address) and os.path.getsize(file_address) != 0:
-                exist_file_address.append(file_address)
+            if os.path.exists(file_address):
+                if os.path.getsize(file_address) == 0:
+                    delete_file(file_address)
+                else:
+                    exist_file_address.append(file_address)
         if len(exist_file_address) == 0:
             print u'该城市的数据已经采集完毕'
         else:
@@ -244,7 +258,5 @@ def get_all_sub_location():
 
 if __name__ == '__main__':
     # get_all_sub_location()
-    for i in get_all_cities_to_collect():
-        print u"此时开始搜集" + i + u"的城市信息"
-        gather(get_all_cities_to_collect()[0])
+    gather(get_all_cities_to_collect()[0])
     # get_house()

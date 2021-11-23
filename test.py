@@ -23,6 +23,8 @@ I love animals. They taste delicious.
 ┗┻┛  ┗┻┛
 """
 # from urllib.request import urlopen
+import os
+import threading
 from urllib import urlopen
 
 from bs4 import BeautifulSoup
@@ -32,9 +34,10 @@ from cities import get_location, get_sub_location
 from lianjia import continue_action
 
 
-def get_location_sub_relation(city = "HZ"):
-    print get_sub_location("https://hz.lianjia.com/ershoufang/aoti/")[0]
+def get_location_sub_relation(city="HZ", exist_file_address="wocao"):
+    print city + exist_file_address
 
 
 if __name__ == '__main__':
-    get_location_sub_relation()
+    for x in range(5):
+        print x

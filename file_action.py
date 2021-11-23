@@ -127,7 +127,7 @@ def delete_file_line(city="HZ", sub_location="ershoufang/daxuechengbei/"):
                     if sub_location in line:
                         continue
                     f_w.write(line)
-    print u"delete " + sub_location + u"success"
+    print u"delete " + sub_location + u"from" + file_address + u"success"
 
 
 def delete_file(file_address):
