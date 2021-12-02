@@ -12,6 +12,7 @@
 """
 
 import sys
+import time
 import urllib2
 
 from bs4 import BeautifulSoup
@@ -71,8 +72,10 @@ def get_location(url="http://hz.lianjia.com/ershoufang/"):
             error = soup.title.text
             if error == u"验证异常流量-链家网":
                 print u'ip被封 重启吧'
+                time.sleep(600)
             elif error == u"人机认证":
                 print u'ip被封 重启吧'
+                time.sleep(600)
             else:
                 break
         except:
@@ -128,12 +131,5 @@ def get_true_location_by_sub():
 
 
 if __name__ == '__main__':
-    city = "HZ"
-    sub_location = "/ershoufang/jinshahu/"
-    file_address = "./relation"
-    test = open(file_address, "r+")
-    for line in test:
-        if sub_location in line:
-            print line
-
+    print get_location()[1]
 

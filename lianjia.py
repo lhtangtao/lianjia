@@ -55,30 +55,6 @@ def continue_action():
 def get_house(city="HZ", sub_location="/ershoufang/jinshahu/", file_add="   "):
     current_page = 1  # 当前在第几页
     total_page = 100  # 在这个区里一共有多少页房产信息
-    # url_source = "http://" + city + ".lianjia.com" + sub_location
-    # count_in_sub_location = 0
-    # while True:
-    #     req = urllib2.Request(url_source)
-    #     page = urllib2.urlopen(req)
-    #     soup = BeautifulSoup(page, "html.parser")
-    #     error = soup.title.text
-    #     if error == u"验证异常流量-链家网" or error == u"人机认证":
-    #         print file_add + u"  计数为" + str(
-    #             count_in_sub_location) + u'在这个页面需要等待10分钟 ' + url_source + u" 现在时间是 " + time.strftime(
-    #             "%Y-%m-%d %H:%M:%S", time.localtime())
-    #         count_in_sub_location = count_in_sub_location + 1
-    #         time.sleep(600)
-    #     else:
-    #         break
-
-    # for link in soup.find_all('div', 'resultDes clear'):
-    #     context = link.get_text()
-    #     # print context #示例是   共找到 3435 套滨江二手房with(document)write('<a href="/ershoufang/"><span></span>清空条件</a>');保存搜索
-    #     total_house = re.findall(r"\d+\.?\d*", context)[0]  # 总共有多少套房子
-    #     print sub_location + u'一共有' + total_house + u'套房子'
-    #     total_page = int(total_house) / 30 + 1  # 求出一共有多少页
-    #     if total_page > 100:
-    #         total_page = 100
     while current_page <= total_page:  # 遍历这个区域的所有房子的信息
         url = "http://" + city + ".lianjia.com" + sub_location + 'pg' + str(current_page) + '/'
         count_in_page = 0
@@ -246,17 +222,24 @@ def get_all_sub_location():
     区域信息更新了才要调用这个 这个函数一般一个月或者半年执行一次就够了
     :return:
     """
-    start = time.time()
+    start_time = time.time()
     location_list = get_all_cities()
     print location_list
     for i in location_list:
-        # threading.Thread(target=write_sub_location, args=(i,)).start()
         write_sub_location(i)
-    end = time.time()
-    print u'Running time: %s Seconds' % (end - start)
+    end_time = time.time()
+    print u'Running time: %s Seconds' % (end_time - start_time)
 
 
 if __name__ == '__main__':
-    # get_all_sub_location()
-    gather(get_all_cities_to_collect()[0])
-    # get_house()
+    start = len(get_all_cities_to_collect())
+    count = 0
+    while True:
+        end = len(get_all_cities_to_collect())
+        if start - end == count:
+            gather(get_all_cities_to_collect()[0])
+            count = count + 1
+        if count == start:
+            break
+        else:
+            time.sleep(300)

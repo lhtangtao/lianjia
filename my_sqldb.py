@@ -50,7 +50,7 @@ def create_table(drop=True):
         print u"！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！出现报错请查看错误原因"
         print e
         print u"错误打印完毕！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
-        if drop == True:
+        if drop:
             sql_script = "drop table " + table_name
             cur.execute(sql_script)
             print u"third " + sql_script
@@ -93,14 +93,46 @@ def get_row():
     """
     conn = init_db()
     cur = conn.cursor()
-    sql_script = 'SELECT  * FROM %s' % table_name
+    sql_script = 'SELECT VERSION()'
     print sql_script
     row = cur.execute(sql_script)
+    print cur.fetchone()
     cur.close()
     conn.commit()
     conn.close()
-    # return row
+    return row
+
+
+def insert_city(value="('2021-11','杭州','3200','3003')"):
+    conn = init_db()
+    cur = conn.cursor()
+    sql_script = 'INSERT INTO relation (date,city,expect,really,url,rate,location,sub_location) VALUES ' + value + "','none','none')"
+    # print sql_script
+    cur.execute(sql_script)
+    cur.close()
+    conn.commit()
+    conn.close()
+
+
+def insert_location(value):
+    conn = init_db()
+    cur = conn.cursor()
+    sql_script = 'INSERT INTO relation (date,city,expect,really,url,location,rate,sub_location) VALUES ' + value + "','none')"
+    cur.execute(sql_script)
+    cur.close()
+    conn.commit()
+    conn.close()
+
+
+def insert_sub_location(value):
+    conn = init_db()
+    cur = conn.cursor()
+    sql_script = 'INSERT INTO relation (date,city,expect,really,url,location,sub_location,rate) VALUES ' + value + "')"
+    cur.execute(sql_script)
+    cur.close()
+    conn.commit()
+    conn.close()
 
 
 if __name__ == '__main__':
-    print create_table(False)
+    print insert_city()
