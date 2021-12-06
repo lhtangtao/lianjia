@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+workspace.xml
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
